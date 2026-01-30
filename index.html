@@ -9,7 +9,7 @@
     <style>
         :root {
             --bg: #030303;
-            --accent: #00FF41; /* Neo Green */
+            --accent: #00FF41; 
             --accent-glow: rgba(0, 255, 65, 0.4);
             --card-bg: #0a0a0a;
             --text-primary: #e0e0e0;
@@ -27,12 +27,10 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
             line-height: 1.6;
-            position: relative;
         }
 
-        /* Particles Background */
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
@@ -41,17 +39,19 @@
             background: linear-gradient(to bottom, rgba(0, 255, 65, 0.03), transparent);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        /* General Animations */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--accent-glow); } 70% { box-shadow: 0 0 0 20px rgba(0,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
-        @keyframes typeEffect { from { width: 0; } to { width: 100%; } }
-        @keyframes blinkCursor { from { border-right-color: var(--accent); } to { border-right-color: transparent; } }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* --- Header Section --- */
         header {
@@ -63,15 +63,7 @@
             position: relative;
             text-align: center;
             padding: 20px;
-            z-index: 1; /* Above particles */
-            isolation: isolate; /* Ensures z-index works correctly for pseudo-elements */
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            animation: fadeIn 1.5s ease-out;
-            max-width: 900px;
+            z-index: 1;
         }
 
         .glitch-text {
@@ -80,66 +72,25 @@
             font-weight: 700;
             color: var(--accent);
             text-shadow: 0 0 15px var(--accent-glow);
-            letter-spacing: -2px;
             position: relative;
-            padding-bottom: 10px;
             margin-bottom: 20px;
-        }
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            color: var(--accent);
-            mix-blend-mode: hard-light;
-        }
-        .glitch-text::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff0055;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 2s infinite linear alternate-reverse;
-        }
-        .glitch-text::after {
-            left: -2px;
-            text-shadow: -2px 0 #00fffb;
-            clip: rect(84px, 450px, 126px, 0);
-            animation: glitch-anim 3s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim {
-            0% { clip: rect(24px, 9999px, 83px, 0); transform: skew(0.5deg); }
-            10% { clip: rect(10px, 9999px, 82px, 0); transform: skew(-0.8deg); }
-            20% { clip: rect(69px, 9999px, 16px, 0); transform: skew(0.2deg); }
-            30% { clip: rect(31px, 9999px, 14px, 0); transform: skew(-0.5deg); }
-            40% { clip: rect(89px, 9999px, 100px, 0); transform: skew(1deg); }
-            50% { clip: rect(63px, 9999px, 94px, 0); transform: skew(-0.3deg); }
-            60% { clip: rect(93px, 9999px, 83px, 0); transform: skew(0.7deg); }
-            70% { clip: rect(60px, 9999px, 40px, 0); transform: skew(-0.9deg); }
-            80% { clip: rect(90px, 9999px, 39px, 0); transform: skew(0.4deg); }
-            90% { clip: rect(10px, 9999px, 40px, 0); transform: skew(-0.2deg); }
-            100% { clip: rect(40px, 9999px, 11px, 0); transform: skew(0deg); }
         }
 
         .typewriter {
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.2rem;
             color: #ccc;
-            margin: 20px auto;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 2px solid var(--accent); /* The blinking cursor */
-            animation: typeEffect 4s steps(40, end), blinkCursor 0.75s step-end infinite;
+            min-height: 1.5em;
+            border-right: 2px solid var(--accent);
+            display: inline-block;
         }
 
-        /* Buttons & Social Links */
         .btn-group {
             margin-top: 40px;
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            animation: slideInUp 1.5s ease-out;
         }
 
         .btn {
@@ -150,34 +101,31 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: 3px;
             background: transparent;
             transition: var(--transition-speed) ease;
-            position: relative;
-            overflow: hidden;
             box-shadow: 0 0 10px rgba(0,255,65,0.2);
+            font-family: 'Share Tech Mono', monospace;
         }
 
         .btn:hover {
             background: var(--accent);
             color: var(--bg);
-            box-shadow: 0 0 25px var(--accent-glow), 0 0 50px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
             transform: translateY(-3px);
         }
 
         .social-links { margin-top: 30px; }
         .social-links a {
             color: var(--text-secondary);
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin: 0 15px;
-            transition: var(--transition-speed) ease;
-            filter: drop-shadow(0 0 5px rgba(0,255,65,0.2));
+            transition: 0.3s;
         }
-        .social-links a:hover { color: var(--accent); transform: scale(1.2) translateY(-2px); filter: drop-shadow(0 0 15px var(--accent-glow)); }
+        .social-links a:hover { color: var(--accent); transform: scale(1.1); }
 
         /* --- Sections --- */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 100px auto;
             padding: 0 30px;
             position: relative;
@@ -186,126 +134,78 @@
 
         h2 {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #fff;
-            margin-bottom: 50px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 10px;
-            animation: slideInUp 1s ease-out;
-        }
-        h2::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 35px;
-            border-radius: 5px;
-            transition: var(--transition-speed) ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: slideInUp 1s ease-out;
+            padding: 30px;
+            border-radius: 4px;
+            transition: 0.4s;
         }
 
         .card:hover {
             border-color: var(--accent);
-            background: #000;
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+            transform: translateY(-5px);
         }
 
         .card h3 {
             font-family: 'Share Tech Mono', monospace;
             color: var(--accent);
             margin-bottom: 15px;
-            font-size: 1.6rem;
-            text-shadow: 0 0 5px var(--accent-glow);
         }
-        .card p { color: var(--text-secondary); margin-bottom: 10px; }
-        .card small { color: #555; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
 
         .tag {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: rgba(0, 255, 65, 0.1);
             color: var(--accent);
-            padding: 4px 10px;
-            margin-right: 8px;
-            margin-bottom: 10px;
+            padding: 3px 8px;
+            margin-right: 5px;
             border-radius: 3px;
-            display: inline-block;
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            border: 1px solid rgba(0, 255, 65, 0.2);
         }
-        .tag i { margin-right: 5px; }
 
-        /* Progress Bars for Skills */
-        .skill-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        .skill-item {
-            margin-bottom: 20px;
-            animation: slideInUp 1.2s ease-out;
-        }
-        .skill-item h4 {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--accent);
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
+        /* Skills */
+        .skill-item { margin-bottom: 20px; }
         .progress-bar-container {
-            background-color: #333;
-            border-radius: 5px;
-            height: 10px;
-            overflow: hidden;
-            position: relative;
+            background-color: #1a1a1a;
+            height: 8px;
+            margin-top: 8px;
         }
         .progress-bar {
             height: 100%;
-            background: linear-gradient(to right, var(--accent), #00A332);
-            width: 0%; /* Will be animated by JS */
-            border-radius: 5px;
-            transition: width 1.5s ease-out;
+            background: var(--accent);
             box-shadow: 0 0 10px var(--accent-glow);
+            width: 0;
+            transition: width 2s ease-in-out;
         }
 
-        /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 70px 20px;
-            color: #444;
+            padding: 60px 20px;
             border-top: 1px solid var(--border-color);
-            position: relative;
-            z-index: 1;
             font-family: 'Share Tech Mono', monospace;
+            color: var(--text-secondary);
+            z-index: 1;
+            position: relative;
         }
-        footer a { color: var(--accent); text-decoration: none; transition: var(--transition-speed); }
-        footer a:hover { color: #00fffb; text-shadow: 0 0 5px #00fffb; }
 
         @media (max-width: 768px) {
-            .glitch-text { font-size: clamp(2rem, 12vw, 4rem); }
-            .typewriter { font-size: 1rem; }
-            .grid { grid-template-columns: 1fr; }
-            h2 { font-size: 2rem; }
-            .container { margin: 60px auto; padding: 0 15px; }
+            .glitch-text { font-size: 3rem; }
+            .container { margin: 50px auto; }
         }
     </style>
 </head>
@@ -315,208 +215,148 @@
 
 <header>
     <div class="header-content">
-        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace; margin-bottom: 10px;">[SYSTEM: BOOTING UP...]</p>
-        [cite_start]<h1 class="glitch-text" data-text="JAYASANKHA MADHUSITH">JAYASANKHA MADHUSITH [cite: 3]</h1>
-        <p class="typewriter" id="typewriter-text">
-            [cite_start]Creative Developer | Cyber-Security Enthusiast | Interdisciplinary Academic [cite: 7, 11, 16]
-        </p>
+        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace;">[CONNECTION ESTABLISHED]</p>
+        <h1 class="glitch-text" data-text="JAYASANKHA MADHUSITH">JAYASANKHA MADHUSITH</h1>
+        <div class="typewriter" id="typewriter-text"></div>
         
         <div class="btn-group">
             <a href="#about" class="btn"><i class="fas fa-user-ninja"></i> Profile Data</a>
             <a href="#projects" class="btn"><i class="fas fa-project-diagram"></i> Project Matrix</a>
-            <a href="CV.pdf" download="Jayasankha_Madhusith_CV" class="btn">
-                <i class="fas fa-file-download"></i> Download CV
-            </a>
+            <a href="CV.pdf" download class="btn"><i class="fas fa-file-download"></i> Download CV</a>
         </div>
 
         <div class="social-links">
-            <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub Profile"><i class="fab fa-github"></i></a>
-            <a href="mailto:Jmadhumax@gmail.com" title="Send Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://wa.link/z1syel" target="_blank" title="WhatsApp Chat"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:Jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.link/z1syel" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 </header>
 
 <div class="container" id="about">
-    <h2>// ABOUT_ME</h2>
-    <div class="card" style="animation: slideInUp 1s ease-out;">
-        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary);">
-            [cite_start]I am Diyangu Badathuruge Jayasankha Madhusith [cite: 3], a highly motivated undergraduate at the **University of Sri Jayewardenepura** [cite: 11], pursuing a Bachelor of Arts degree (2020–2024) [cite: 14]. [cite_start]My academic focus spans **Psychology, Criminology, and International Relations** [cite: 16, 26, 27], providing a unique lens through which I approach complex problem-solving and creative development.
-            [cite_start]I am passionate about leveraging digital tools to bridge the gap between human behavior and technological innovation [cite: 7].
+    <h2 class="reveal">// PROFILE_DATA</h2>
+    <div class="card reveal">
+        <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 20px;">
+            I am <strong>Diyangu Badathuruge Jayasankha Madhusith</strong> , a creative and analytical undergraduate at <strong>Sri Jayewardenepura University</strong>[cite: 7, 11]. My academic background in <strong>Psychology, Criminology, and International Relations</strong> [cite: 7, 16, 26, 27] allows me to integrate human behavioral insights with modern technological solutions.
         </p>
-        <div style="margin-top: 30px;">
-            <h3>// SKILL_MATRIX</h3>
-            <ul class="skill-list">
-                <li class="skill-item">
-                    <h4><i class="fas fa-code"></i> Web Development (JS/HTML/CSS)</h4>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width: 85%;"></div></div>
-                </li>
-                <li class="skill-item">
-                    <h4><i class="fas fa-paint-brush"></i> Graphic Design & UI/UX</h4>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width: 90%;"></div></div>
-                </li>
-                <li class="skill-item">
-                    <h4><i class="fas fa-video"></i> Video Editing & Motion Graphics</h4>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width: 88%;"></div></div>
-                </li>
-                <li class="skill-item">
-                    <h4><i class="fas fa-chart-line"></i> SEO & Digital Marketing</h4>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width: 80%;"></div></div>
-                </li>
-                 <li class="skill-item">
-                    <h4><i class="fas fa-search"></i> Research & Analysis (Psych/Crim)</h4>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width: 92%;"></div></div>
-                </li>
-            </ul>
+        
+        <div class="grid">
+            <div class="skill-item">
+                <span style="font-family: 'Share Tech Mono';">WEB_DEVELOPMENT</span>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="85%"></div></div>
+            </div>
+            <div class="skill-item">
+                <span style="font-family: 'Share Tech Mono';">UI_UX_DESIGN</span>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="90%"></div></div>
+            </div>
+            <div class="skill-item">
+                <span style="font-family: 'Share Tech Mono';">CRIMINAL_PSYCH_RESEARCH</span>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="92%"></div></div>
+            </div>
+            <div class="skill-item">
+                <span style="font-family: 'Share Tech Mono';">SEO_&_DIGITAL_MARKETING</span>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="80%"></div></div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="container" id="projects">
-    <h2>// CORE_PROJECTS</h2>
+    <h2 class="reveal">// PROJECT_MATRIX</h2>
     <div class="grid">
-        <div class="card">
-            <span class="tag"><i class="fas fa-terminal"></i> JS</span>
-            <span class="tag"><i class="fas fa-shield-alt"></i> Security</span>
-            <h3>Console Injection+ (v6.1)</h3>
-            <p>A sophisticated browser-based utility suite for advanced DOM manipulation, network stream interception, and real-time ad-blocking defense systems.</p>
-            <a href="https://github.com/Jayasankha-dev/console-injection-plus" class="btn" style="font-size: 0.8rem; padding: 8px 15px;"><i class="fab fa-github"></i> View Source</a>
+        <div class="card reveal">
+            <span class="tag">JAVASCRIPT</span><span class="tag">SECURITY</span>
+            <h3>Console Injection+</h3>
+            <p>A sophisticated utility suite for advanced browser manipulation and network stream interception.</p>
+            <br>
+            <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.8rem;">View Source</a>
         </div>
-        <div class="card">
-            <span class="tag"><i class="fas fa-bezier-curve"></i> Design</span>
-            <span class="tag"><i class="fas fa-bullhorn"></i> Marketing</span>
-            <h3>Digital Media & Brand Strategy</h3>
-            [cite_start]<p>Integrating artistic expression with psychological insights for impactful digital campaigns. Expertise in SEO, Facebook Marketing, and Website Management [cite: 7].</p>
-            <small>Technologies: Adobe Creative Suite, SEMrush, HubSpot</small>
+
+        <div class="card reveal">
+            <span class="tag">DESIGN</span><span class="tag">PSYCHOLOGY</span>
+            <h3>Digital Media Strategy</h3>
+            <p>Integrating artistic expression with psychological insights for impactful digital campaigns.</p>
+            <small>Tech: SEO, FB Marketing, Website Management </small>
         </div>
-         <div class="card">
-            <span class="tag"><i class="fas fa-book"></i> Research</span>
-            <span class="tag"><i class="fas fa-gavel"></i> Criminology</span>
-            <h3>Academic Research & Publications</h3>
-            <p>Ongoing research in Criminology and Psychology, focusing on digital forensics and social engineering vulnerabilities.</p>
-            <a href="#" class="btn" style="font-size: 0.8rem; padding: 8px 15px;"><i class="fas fa-scroll"></i> Read Papers</a>
+
+        <div class="card reveal">
+            <span class="tag">RESEARCH</span><span class="tag">CRIMINOLOGY</span>
+            <h3>Academic Research</h3>
+            <p>Focusing on the intersection of human behavior, criminological theories, and digital forensics.</p>
         </div>
     </div>
 </div>
 
 <div class="container" id="experience">
-    <h2>// INTEL_LOG</h2>
+    <h2 class="reveal">// INTEL_LOG</h2>
     <div class="grid">
-        <div class="card">
-            <h3>Bachelor of Arts</h3>
-            [cite_start]<p><strong>University of Sri Jayewardenepura</strong> [cite: 11]</p>
-            [cite_start]<p>Major in Psychology, Criminology & International Relations [cite: 16, 26, 27]</p>
-            [cite_start]<small>2020 - 2024 [cite: 14]</small>
+        <div class="card reveal">
+            <h3>University of Sri Jayewardenepura</h3>
+            <p>Bachelor of Arts [cite: 13]</p>
+            <p>Psychology, Criminology & International Relations </p>
+            <small style="color:var(--accent)">2020 - 2024 [cite: 10, 14]</small>
         </div>
-        <div class="card">
-            <h3>Management Assistant</h3>
-            [cite_start]<p><strong>Asiri Home Building Service</strong> [cite: 38]</p>
-            <p>Managed administrative tasks, client communications, and supported operational workflows.</p>
-            [cite_start]<small>2022 - 2023 [cite: 38]</small>
+        <div class="card reveal">
+            <h3>Asiri Home Building Service</h3>
+            <p>Management Assistant </p>
+            <p>Operational workflows and client communications </p>
+            <small style="color:var(--accent)">2022 - 2023 </small>
         </div>
-        <div class="card">
-            <h3>Technical Operations</h3>
-            [cite_start]<p><strong>Radiant</strong> [cite: 39]</p>
-            <p>Provided technical support and optimized system performance in a fast-paced environment.</p>
-            [cite_start]<small>2023 - 2024 [cite: 39]</small>
+        <div class="card reveal">
+            <h3>Radiant</h3>
+            <p>Technical Operations Support </p>
+            <p>Optimizing system performance and technical troubleshooting </p>
+            <small style="color:var(--accent)">2023 - 2024 </small>
         </div>
     </div>
 </div>
 
 <footer>
-    <div class="social-links" style="margin-bottom: 25px;">
-        <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub Profile"><i class="fab fa-github"></i></a>
-        <a href="mailto:Jmadhumax@gmail.com" title="Send Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://wa.link/z1syel" target="_blank" title="WhatsApp Chat"><i class="fab fa-whatsapp"></i></a>
-    </div>
-    [cite_start]<p>SECURE TERMINAL // MASPOTHA, SRI LANKA [cite: 9, 25]</p>
-    <p>&copy; [cite_start]2026 DEPLOYED BY JAYASANKHA MADHUSITH. ALL RIGHTS RESERVED. [cite: 3, 69]</p>
+    <p>SECURE TERMINAL // MASPOTHA, SRI LANKA </p>
+    <p>&copy; 2026 DEPLOYED BY JAYASANKHA MADHUSITH.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-    // Initialize Particles.js
     particlesJS('particles-js', {
         "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "number": { "value": 60 },
             "color": { "value": "#00FF41" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
-            "size": { "value": 3, "random": true, "anim": { "enable": false } },
-            "line_linked": {
-                "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.4, "width": 1
-            },
-            "move": {
-                "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false,
-                "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 }
-            }
+            "opacity": { "value": 0.3 },
+            "size": { "value": 2 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 2 }
         },
         "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": { "enable": true, "mode": "grab" },
-                "onclick": { "enable": true, "mode": "push" },
-                "resize": true
-            },
-            "modes": {
-                "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
-                "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
-                "repulse": { "distance": 200, "duration": 0.4 },
-                "push": { "particles_nb": 4 },
-                "remove": { "particles_nb": 2 }
-            }
-        },
-        "retina_detect": true
+            "events": { "onhover": { "enable": true, "mode": "grab" } }
+        }
     });
 
-    // Smooth Scroll for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
+    // Typewriter
+    const text = "Creative Developer | Cyber-Security Enthusiast | Interdisciplinary Academic";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+    window.onload = typeWriter;
 
-    // Intersection Observer for slide-in animations
-    const elementsToAnimate = document.querySelectorAll('.card, h2');
+    // Intersection Observer for animations
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
+                const bars = entry.target.querySelectorAll('.progress-bar');
+                bars.forEach(bar => bar.style.width = bar.getAttribute('data-width'));
             }
         });
-    }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    }, { threshold: 0.1 });
 
-    elementsToAnimate.forEach(element => {
-        element.style.opacity = 0; // Hide initially
-        element.style.transform = 'translateY(50px)'; // Start from below
-        element.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-        observer.observe(element);
-    });
-
-    // Add a class for elements that should be visible
-    document.querySelectorAll('.is-visible').forEach(el => {
-        el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-    });
-
-    // Typewriter effect for the subtitle
-    const typewriterTextElement = document.getElementById('typewriter-text');
-    const text = typewriterTextElement.innerText;
-    typewriterTextElement.innerText = ''; // Clear initial text
-    let i = 0;
-    const speed = 70; // Typing speed in milliseconds
-
-    function typeWriter() {
-        if (i < text.length) {
-            typewriterTextElement.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-    window.addEventListener('load', typeWriter); // Start typing on load
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
