@@ -3,164 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayasankha Madhusith | Portfolio</title>
+    <title>Jayasankha Madhusith | Cyber Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050505;
             --accent: #00FF41;
-            --card: #111;
-            --text: #ffffff;
+            --accent-dim: rgba(0, 255, 65, 0.15);
+            --card: #0d0d0d;
+            --text: #e0e0e0;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Consolas', monospace;
+            font-family: 'Space Grotesk', sans-serif;
             margin: 0;
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: 0%; }
+        }
+
+        /* --- Header Section --- */
         header {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at center, #004411 0%, #050505 70%);
+            background: linear-gradient(to bottom, rgba(0, 255, 65, 0.05), transparent), var(--bg);
+            position: relative;
             text-align: center;
             padding: 20px;
         }
 
+        header::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-dim);
+            animation: scanline 6s linear infinite;
+            opacity: 0.3;
+        }
+
         .glitch {
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: bold;
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-weight: 800;
             color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
+            text-shadow: 2px 2px 0px #ff0055, -2px -2px 0px #00fffb;
             margin: 0;
-            text-transform: uppercase;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            color: #888;
-            margin-top: 10px;
-            max-width: 700px;
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-top: 15px;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
         }
 
+        /* --- Buttons --- */
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            background: transparent;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        /* --- Sections --- */
         .container {
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 25px;
         }
 
         h2 {
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
-            margin-bottom: 30px;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 40px;
+            color: #fff;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: var(--card);
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 8px;
-            transition: 0.3s;
+            border: 1px solid #1a1a1a;
+            padding: 30px;
+            border-radius: 4px;
+            transition: var(--transition);
+            position: relative;
         }
 
         .card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            background: #111;
+            transform: translateY(-10px) scale(1.02);
         }
 
-        .card h3 { color: var(--accent); margin-top: 0; }
-        .card p { font-size: 0.9rem; color: #ccc; }
-        .card small { color: #777; }
+        .card h3 { color: var(--accent); margin-top: 0; font-size: 1.4rem; }
+        .card p { color: #ccc; line-height: 1.6; }
+        .card small { color: #666; font-family: 'Consolas', monospace; }
 
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            border: 1px solid var(--accent);
+        .tag {
+            font-size: 0.7rem;
+            background: var(--accent-dim);
             color: var(--accent);
-            text-decoration: none;
-            border-radius: 4px;
+            padding: 3px 8px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #444;
+            border-top: 1px solid #111;
+        }
+
+        .social-links { margin-bottom: 20px; }
+        .social-links a {
+            color: #888;
+            font-size: 1.8rem;
+            margin: 0 15px;
             transition: 0.3s;
         }
+        .social-links a:hover { color: var(--accent); transform: scale(1.2); }
 
-        .btn:hover { background: var(--accent); color: #000; }
-
-        .social-links { margin-top: 20px; font-size: 1.5rem; }
-        .social-links a { color: var(--accent); margin: 0 10px; text-decoration: none; }
-
-        footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
+        @media (max-width: 600px) {
+            .glitch { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <p style="color: var(--accent); margin-bottom: 0;">Hello, I am</p>
-    <h1 class="glitch">JAYASANKHA MADHUSITH</h1>
+    <p style="color: var(--accent); font-family: 'Consolas', monospace;">[SYSTEM READY...]</p>
+    <h1 class="glitch">JAYASANKHA MADHUSITH [cite: 3]</h1>
     <p class="subtitle">
-        Creative Designer & Web Developer  <br>
-        Undergraduate at University of Sri Jayewardenepura [cite: 11] <br>
-        Specializing in Psychology, Criminology & International Relations [cite: 16, 26, 27]
+        Creative Designer & Web Developer <br>
+        Undergraduate at <strong>University of Sri Jayewardenepura</strong> [cite: 11] <br>
+        Expertise: Psychology, Criminology & International Relations [cite: 16, 26, 27]
     </p>
-    <div class="social-links">
-        <a href="https://github.com/Jayasankha-dev" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="mailto:Jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://wa.link/z1syel" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    
+    <div class="btn-group">
+        <a href="#projects" class="btn">View Matrix</a>
+        <a href="CV.pdf" download="Jayasankha_Madhusith_CV" class="btn">
+            <i class="fas fa-file-download"></i> Get CV
+        </a>
     </div>
-    <a href="#projects" class="btn">Explore My Work</a>
-  <a href="CV.pdf" download="Jayasankha_Madhusith_CV" class="btn">
-   <i class="fas fa-file-download"></i> DOWNLOAD CV
-</a>
+
+    <div class="social-links" style="margin-top: 40px;">
+        <a href="https://github.com/Jayasankha-dev"><i class="fab fa-github"></i></a>
+        <a href="mailto:Jmadhumax@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.link/z1syel"><i class="fab fa-whatsapp"></i></a>
+    </div>
 </header>
 
 <div class="container" id="projects">
-    <h2>CORE PROJECTS</h2>
+    <h2>PROJECTS_</h2>
     <div class="grid">
         <div class="card">
+            <span class="tag">JavaScript</span><span class="tag">Security</span>
             <h3>Console Injection+</h3>
-            <p>Advanced script suite for media extraction and browser-based security tools.</p>
-            <a href="https://github.com/Jayasankha-dev/console-injection-plus" class="btn">Source Code</a>
+            <p>A sophisticated toolset for DOM manipulation, network sniffing, and ad-blocking defense systems.</p>
+            <a href="https://github.com/Jayasankha-dev/console-injection-plus" class="btn" style="font-size: 0.7rem; padding: 5px 10px;">Review Code</a>
         </div>
         <div class="card">
-            <h3>Graphic Design & Video Editing</h3>
-            <p>Passionate about integrating artistic expression with psychological insights.</p>
-            <small>Skills: SEO, FB Marketing, Website Management </small>
+            <span class="tag">Design</span><span class="tag">Marketing</span>
+            <h3>Digital Media Suite</h3>
+            <p>Specialized in SEO, Facebook Marketing, and High-end Video Editing for psychological impact. </p>
+            <small>Skills: Adobe Suite, SEO, Web Management</small>
         </div>
     </div>
 </div>
 
 <div class="container" id="experience">
-    <h2>EXPERIENCE & EDUCATION</h2>
+    <h2>INTEL & EXPERIENCE_</h2>
     <div class="grid">
         <div class="card">
-            <h3>Management Assistant</h3>
-            <p>Asiri Home Building Service</p>
-            <small>2022 - 2023 [cite: 38]</small>
+            <h3>Academic Excellence</h3>
+            <p>Bachelor of Arts - University of Sri Jayewardenepura [cite: 11, 13]</p>
+            <p><small>Focus: Psychology, Criminology & IR [cite: 16, 26, 27]</small></p>
+            <small>2020 - 2024 [cite: 14]</small>
         </div>
         <div class="card">
-            <h3>Bachelor of Arts</h3>
-            <p>University of Sri Jayewardenepura</p>
-            <small>2020 - 2024 [cite: 11, 14]</small>
+            <h3>Management Assistant</h3>
+            <p>Asiri Home Building Service [cite: 38]</p>
+            <p>Handling administrative operations and creative workflow management.</p>
+            <small>2022 - 2023 [cite: 38]</small>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>Based in Maspotha, Sri Lanka [cite: 9, 25]</p>
-    <p>&copy; 2026 Jayasankha Madhusith [cite: 3]</p>
+    <p>LOCATION: MASPOTHA, SRI LANKA [cite: 9]</p>
+    <p>&copy; 2026 DEPLOYED BY JAYASANKHA MADHUSITH [cite: 3, 69]</p>
 </footer>
+
+<script>
+    // Simple Scroll Reveal Effect
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.6s ease-out';
+        observer.observe(card);
+    });
+</script>
 
 </body>
 </html>
