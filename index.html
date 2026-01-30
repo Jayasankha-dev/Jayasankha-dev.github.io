@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayasankha Madhusith | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #00FF41;
+            --card: #111;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Consolas', monospace;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #004411 0%, #050505 70%);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .glitch {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: bold;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 10px;
+            max-width: 700px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+
+        .card h3 { color: var(--accent); margin-top: 0; }
+        .card p { font-size: 0.9rem; color: #ccc; }
+        .card small { color: #777; }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: var(--accent); color: #000; }
+
+        .social-links { margin-top: 20px; font-size: 1.5rem; }
+        .social-links a { color: var(--accent); margin: 0 10px; text-decoration: none; }
+
+        footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
+    </style>
+</head>
+<body>
+
+<header>
+    <p style="color: var(--accent); margin-bottom: 0;">Hello, I am</p>
+    <h1 class="glitch">JAYASANKHA MADHUSITH</h1>
+    <p class="subtitle">
+        Creative Designer & Web Developer  <br>
+        Undergraduate at University of Sri Jayewardenepura [cite: 11] <br>
+        Specializing in Psychology, Criminology & International Relations [cite: 16, 26, 27]
+    </p>
+    <div class="social-links">
+        <a href="https://github.com/Jayasankha-dev" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:Jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.link/ukclok" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <a href="#projects" class="btn">Explore My Work</a>
+  <a href="CV.pdf" download="Jayasankha_Madhusith_CV" class="btn">
+   <i class="fas fa-file-download"></i> DOWNLOAD CV
+</a>
+</header>
+
+<div class="container" id="projects">
+    <h2>CORE PROJECTS</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Console Injection+</h3>
+            <p>Advanced script suite for media extraction and browser-based security tools.</p>
+            <a href="https://github.com/Jayasankha-dev/console-injection-plus" class="btn">Source Code</a>
+        </div>
+        <div class="card">
+            <h3>Graphic Design & Video Editing</h3>
+            <p>Passionate about integrating artistic expression with psychological insights.</p>
+            <small>Skills: SEO, FB Marketing, Website Management </small>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="experience">
+    <h2>EXPERIENCE & EDUCATION</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Management Assistant</h3>
+            <p>Asiri Home Building Service</p>
+            <small>2022 - 2023 [cite: 38]</small>
+        </div>
+        <div class="card">
+            <h3>Bachelor of Arts</h3>
+            <p>University of Sri Jayewardenepura</p>
+            <small>2020 - 2024 [cite: 11, 14]</small>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Based in Maspotha, Sri Lanka [cite: 9, 25]</p>
+    <p>&copy; 2026 Jayasankha Madhusith [cite: 3]</p>
+</footer>
+
+</body>
+</html>
