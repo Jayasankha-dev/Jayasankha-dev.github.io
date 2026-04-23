@@ -68,7 +68,7 @@
 
         .glitch-text {
             font-family: 'Share Tech Mono', monospace;
-            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-size: clamp(2rem, 8vw, 4.5rem);
             font-weight: 700;
             color: var(--accent);
             text-shadow: 0 0 15px var(--accent-glow);
@@ -78,11 +78,12 @@
 
         .typewriter {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #ccc;
             min-height: 1.5em;
             border-right: 2px solid var(--accent);
             display: inline-block;
+            margin-top: 10px;
         }
 
         .btn-group {
@@ -94,7 +95,7 @@
         }
 
         .btn {
-            padding: 14px 30px;
+            padding: 12px 25px;
             border: 1px solid var(--accent);
             color: var(--accent);
             text-decoration: none;
@@ -103,8 +104,9 @@
             letter-spacing: 1px;
             background: transparent;
             transition: var(--transition-speed) ease;
-            box-shadow: 0 0 10px rgba(0,255,65,0.2);
+            box-shadow: 0 0 10px rgba(0,255,65,0.1);
             font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
@@ -114,19 +116,19 @@
             transform: translateY(-3px);
         }
 
-        .social-links { margin-top: 30px; }
+        .social-links { margin-top: 35px; }
         .social-links a {
             color: var(--text-secondary);
-            font-size: 1.8rem;
-            margin: 0 15px;
+            font-size: 1.6rem;
+            margin: 0 12px;
             transition: 0.3s;
         }
-        .social-links a:hover { color: var(--accent); transform: scale(1.1); }
+        .social-links a:hover { color: var(--accent); transform: translateY(-5px); }
 
         /* --- Sections --- */
         .container {
             max-width: 1100px;
-            margin: 100px auto;
+            margin: 80px auto;
             padding: 0 30px;
             position: relative;
             z-index: 1;
@@ -134,9 +136,9 @@
 
         h2 {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #fff;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             border-left: 4px solid var(--accent);
             padding-left: 15px;
         }
@@ -153,11 +155,13 @@
             padding: 30px;
             border-radius: 4px;
             transition: 0.4s;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
             transform: translateY(-5px);
         }
 
@@ -165,47 +169,60 @@
             font-family: 'Share Tech Mono', monospace;
             color: var(--accent);
             margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         .tag {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem;
-            background: rgba(0, 255, 65, 0.1);
+            font-size: 0.7rem;
+            background: rgba(0, 255, 65, 0.08);
             color: var(--accent);
             padding: 3px 8px;
             margin-right: 5px;
+            margin-bottom: 8px;
+            display: inline-block;
             border-radius: 3px;
             border: 1px solid rgba(0, 255, 65, 0.2);
         }
 
         /* Skills */
         .skill-item { margin-bottom: 20px; }
+        .skill-info { display: flex; justify-content: space-between; font-family: 'Share Tech Mono'; font-size: 0.85rem; }
         .progress-bar-container {
             background-color: #1a1a1a;
-            height: 8px;
+            height: 6px;
             margin-top: 8px;
+            border-radius: 10px;
         }
         .progress-bar {
             height: 100%;
             background: var(--accent);
             box-shadow: 0 0 10px var(--accent-glow);
             width: 0;
-            transition: width 2s ease-in-out;
+            transition: width 1.5s ease-in-out;
+            border-radius: 10px;
         }
 
         footer {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             border-top: 1px solid var(--border-color);
             font-family: 'Share Tech Mono', monospace;
             color: var(--text-secondary);
             z-index: 1;
             position: relative;
+            font-size: 0.9rem;
+        }
+
+        .result-highlight {
+            color: var(--accent);
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
-            .glitch-text { font-size: 3rem; }
-            .container { margin: 50px auto; }
+            .glitch-text { font-size: 2.2rem; }
+            .container { margin: 40px auto; padding: 0 20px; }
+            .btn-group { gap: 10px; }
         }
     </style>
 </head>
@@ -215,46 +232,50 @@
 
 <header>
     <div class="header-content">
-        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace;">[CONNECTION ESTABLISHED]</p>
+        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace; letter-spacing: 2px;">[SYSTEM_ONLINE]</p>
         <h1 class="glitch-text" data-text="JAYASANKHA MADHUSITH">JAYASANKHA MADHUSITH</h1>
         <div class="typewriter" id="typewriter-text"></div>
         
         <div class="btn-group">
-            <a href="#about" class="btn"><i class="fas fa-user-ninja"></i> Profile Data</a>
-            <a href="#projects" class="btn"><i class="fas fa-project-diagram"></i> Project Matrix</a>
-            <a href="CV.pdf" download class="btn"><i class="fas fa-file-download"></i> Download CV</a>
+            <a href="#about" class="btn"><i class="fas fa-id-card"></i> Profile</a>
+            <a href="#projects" class="btn"><i class="fas fa-code-branch"></i> Projects</a>
+            <a href="CV.pdf" target="_blank" download="Jayasankha_Madhusith_CV" class="btn">
+                <i class="fas fa-file-download"></i> Download CV
+            </a>
         </div>
 
         <div class="social-links">
             <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="mailto:Jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/jayasankha-madhusith/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             <a href="https://wa.link/z1syel" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 </header>
 
 <div class="container" id="about">
-    <h2 class="reveal">// PROFILE_DATA</h2>
+    <h2 class="reveal">// USER_PROFILE</h2>
     <div class="card reveal">
-        <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 20px;">
-            I am <strong>Diyangu Badathuruge Jayasankha Madhusith</strong> , a creative and analytical undergraduate at <strong>Sri Jayewardenepura University</strong>[cite: 7, 11]. My academic background in <strong>Psychology, Criminology, and International Relations</strong> [cite: 7, 16, 26, 27] allows me to integrate human behavioral insights with modern technological solutions.
+        <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 25px;">
+            Analytical and tech-driven undergraduate at the <strong>University of Sri Jayewardenepura</strong>. 
+            By merging <strong>Psychology and Criminology</strong> with modern <strong>Web Technologies</strong>, I build digital solutions that are both technically robust and human-centric.
         </p>
         
         <div class="grid">
             <div class="skill-item">
-                <span style="font-family: 'Share Tech Mono';">WEB_DEVELOPMENT</span>
+                <div class="skill-info"><span>FULLSTACK_DEV (AI-ASSISTED)</span><span>85%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="85%"></div></div>
             </div>
             <div class="skill-item">
-                <span style="font-family: 'Share Tech Mono';">UI_UX_DESIGN</span>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="90%"></div></div>
+                <div class="skill-info"><span>CYBER_SEC_RECON</span><span>75%</span></div>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="75%"></div></div>
             </div>
             <div class="skill-item">
-                <span style="font-family: 'Share Tech Mono';">CRIMINAL_PSYCH_RESEARCH</span>
+                <div class="skill-info"><span>COGNITIVE_PSYCH_ANALYSIS</span><span>92%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="92%"></div></div>
             </div>
             <div class="skill-item">
-                <span style="font-family: 'Share Tech Mono';">SEO_&_DIGITAL_MARKETING</span>
+                <div class="skill-info"><span>DIGITAL_MARKETING_SEO</span><span>80%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="80%"></div></div>
             </div>
         </div>
@@ -265,24 +286,29 @@
     <h2 class="reveal">// PROJECT_MATRIX</h2>
     <div class="grid">
         <div class="card reveal">
-            <span class="tag">JAVASCRIPT</span><span class="tag">SECURITY</span>
+            <div class="tags">
+                <span class="tag">JAVASCRIPT</span><span class="tag">CHROME_EXT</span>
+            </div>
             <h3>Console Injection+</h3>
-            <p>A sophisticated utility suite for advanced browser manipulation and network stream interception.</p>
+            <p>A sophisticated utility suite published on the Chrome Web Store for advanced browser-level debugging and script injections.</p>
             <br>
-            <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.8rem;">View Source</a>
+            <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="btn" style="padding: 6px 12px; font-size: 0.75rem;">Source_Code</a>
         </div>
 
         <div class="card reveal">
-            <span class="tag">DESIGN</span><span class="tag">PSYCHOLOGY</span>
-            <h3>Digital Media Strategy</h3>
-            <p>Integrating artistic expression with psychological insights for impactful digital campaigns.</p>
-            <small>Tech: SEO, FB Marketing, Website Management </small>
+            <div class="tags">
+                <span class="tag">DESIGN</span><span class="tag">STRATEGY</span>
+            </div>
+            <h3>Digital Media Suite</h3>
+            <p>Crafting impactful digital identities using SEO, Facebook Marketing, and modern UI/UX principles for optimized conversion.</p>
         </div>
 
         <div class="card reveal">
-            <span class="tag">RESEARCH</span><span class="tag">CRIMINOLOGY</span>
-            <h3>Academic Research</h3>
-            <p>Focusing on the intersection of human behavior, criminological theories, and digital forensics.</p>
+            <div class="tags">
+                <span class="tag">SECURITY</span><span class="tag">RECON</span>
+            </div>
+            <h3>Aeon Hunter Lite</h3>
+            <p>Specialized web security reconnaissance tool developed for DOM analysis and vulnerability identification.</p>
         </div>
     </div>
 </div>
@@ -291,42 +317,46 @@
     <h2 class="reveal">// INTEL_LOG</h2>
     <div class="grid">
         <div class="card reveal">
-            <h3>University of Sri Jayewardenepura</h3>
-            <p>Bachelor of Arts [cite: 13]</p>
-            <p>Psychology, Criminology & International Relations </p>
-            <small style="color:var(--accent)">2020 - 2024 [cite: 10, 14]</small>
+            <h3>Uni. of Sri Jayewardenepura</h3>
+            <p>Bachelor of Arts (External)</p>
+            <p style="font-size: 0.9rem; margin-top: 10px;">
+                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> Cognitive Psychology: <span class="result-highlight">A-</span><br>
+                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> English Proficiency: <span class="result-highlight">A- / B+</span><br>
+                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> ICT & Data Mgmt: <span class="result-highlight">B- / C+</span>
+            </p>
+            <small style="color:var(--accent); display: block; margin-top: 10px;">2020 - 2024</small>
         </div>
         <div class="card reveal">
-            <h3>Asiri Home Building Service</h3>
-            <p>Management Assistant </p>
-            <p>Operational workflows and client communications </p>
-            <small style="color:var(--accent)">2022 - 2023 </small>
+            <h3>Asiri Home Building</h3>
+            <p>Management Assistant</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">Streamlining operational workflows and technical communications.</p>
+            <small style="color:var(--accent); display: block; margin-top: 10px;">2022 - 2023</small>
         </div>
         <div class="card reveal">
             <h3>Radiant</h3>
-            <p>Technical Operations Support </p>
-            <p>Optimizing system performance and technical troubleshooting </p>
-            <small style="color:var(--accent)">2023 - 2024 </small>
+            <p>Technical Operations</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">System performance optimization and technical troubleshooting support.</p>
+            <small style="color:var(--accent); display: block; margin-top: 10px;">2023 - 2024</small>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>SECURE TERMINAL 🔐SRI LANKA </p>
-    <p>&copy; 2026 DEPLOYED BY JAYASANKHA MADHUSITH.</p>
+    <p>LOCATION: SRI LANKA | ENCRYPTION: AES-256 🔐</p>
+    <p style="margin-top: 10px;">&copy; 2026 JAYASANKHA MADHUSITH. ALL RIGHTS RESERVED.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
     particlesJS('particles-js', {
         "particles": {
-            "number": { "value": 60 },
+            "number": { "value": 45 },
             "color": { "value": "#00FF41" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.3 },
+            "opacity": { "value": 0.2 },
             "size": { "value": 2 },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.2, "width": 1 },
-            "move": { "enable": true, "speed": 2 }
+            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.1, "width": 1 },
+            "move": { "enable": true, "speed": 1.5 }
         },
         "interactivity": {
             "events": { "onhover": { "enable": true, "mode": "grab" } }
@@ -334,18 +364,18 @@
     });
 
     // Typewriter
-    const text = "Creative Developer | Cyber-Security Enthusiast | Interdisciplinary Academic";
+    const text = "Creative Tech Specialist | Psychology Enthusiast | Interdisciplinary Academic";
     let i = 0;
     function typeWriter() {
         if (i < text.length) {
             document.getElementById("typewriter-text").innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 50);
+            setTimeout(typeWriter, 40);
         }
     }
     window.onload = typeWriter;
 
-    // Intersection Observer for animations
+    // Intersection Observer
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -354,7 +384,7 @@
                 bars.forEach(bar => bar.style.width = bar.getAttribute('data-width'));
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
