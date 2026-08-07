@@ -68,17 +68,18 @@
 
         .glitch-text {
             font-family: 'Share Tech Mono', monospace;
-            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-size: clamp(1.8rem, 6vw, 4.5rem);
             font-weight: 700;
             color: var(--accent);
             text-shadow: 0 0 15px var(--accent-glow);
             position: relative;
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .typewriter {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
             color: #ccc;
             min-height: 1.5em;
             border-right: 2px solid var(--accent);
@@ -89,7 +90,7 @@
         .btn-group {
             margin-top: 40px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -102,11 +103,12 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            background: transparent;
+            background: rgba(0, 255, 65, 0.05);
             transition: var(--transition-speed) ease;
             box-shadow: 0 0 10px rgba(0,255,65,0.1);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.9rem;
+            border-radius: 4px;
         }
 
         .btn:hover {
@@ -119,7 +121,7 @@
         .social-links { margin-top: 35px; }
         .social-links a {
             color: var(--text-secondary);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin: 0 12px;
             transition: 0.3s;
         }
@@ -129,7 +131,7 @@
         .container {
             max-width: 1100px;
             margin: 80px auto;
-            padding: 0 30px;
+            padding: 0 20px;
             position: relative;
             z-index: 1;
         }
@@ -153,15 +155,18 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             padding: 30px;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: 0.4s;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .card:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
             transform: translateY(-5px);
         }
 
@@ -170,27 +175,60 @@
             color: var(--accent);
             margin-bottom: 15px;
             font-size: 1.3rem;
+            margin-top: 10px;
+        }
+        
+        .card p {
+            flex-grow: 1;
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        .tags {
+            margin-bottom: 10px;
         }
 
         .tag {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             background: rgba(0, 255, 65, 0.08);
             color: var(--accent);
-            padding: 3px 8px;
+            padding: 4px 10px;
             margin-right: 5px;
             margin-bottom: 8px;
             display: inline-block;
-            border-radius: 3px;
+            border-radius: 4px;
             border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .card-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .card-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
         }
 
         /* Skills */
         .skill-item { margin-bottom: 20px; }
-        .skill-info { display: flex; justify-content: space-between; font-family: 'Share Tech Mono'; font-size: 0.85rem; }
+        .skill-info { display: flex; justify-content: space-between; font-family: 'Share Tech Mono'; font-size: 0.9rem; }
         .progress-bar-container {
             background-color: #1a1a1a;
-            height: 6px;
+            height: 8px;
             margin-top: 8px;
             border-radius: 10px;
         }
@@ -205,7 +243,7 @@
 
         footer {
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             border-top: 1px solid var(--border-color);
             font-family: 'Share Tech Mono', monospace;
             color: var(--text-secondary);
@@ -218,11 +256,50 @@
             color: var(--accent);
             font-weight: bold;
         }
+        
+        .accent-text {
+            color: var(--accent);
+        }
+
+        /* --- Floating WhatsApp Bot (Moved to Left to avoid Tawk.to) --- */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            color: white;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
 
         @media (max-width: 768px) {
-            .glitch-text { font-size: 2.2rem; }
-            .container { margin: 40px auto; padding: 0 20px; }
-            .btn-group { gap: 10px; }
+            .container { margin: 50px auto; }
+            .card { padding: 20px; }
+            .btn-group { flex-direction: column; width: 100%; max-width: 300px; margin: 40px auto 0; }
+            .btn { width: 100%; text-align: center; }
+            .floating-whatsapp { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 30px; }
         }
     </style>
 </head>
@@ -232,50 +309,50 @@
 
 <header>
     <div class="header-content">
-        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace; letter-spacing: 2px;">[SYSTEM_ONLINE]</p>
+        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace; letter-spacing: 2px;">[SYS_ADMIN_ACCESS_GRANTED]</p>
         <h1 class="glitch-text" data-text="JAYASANKHA MADHUSITH">JAYASANKHA MADHUSITH</h1>
         <div class="typewriter" id="typewriter-text"></div>
         
         <div class="btn-group">
-            <a href="#about" class="btn"><i class="fas fa-id-card"></i> Profile</a>
-            <a href="#projects" class="btn"><i class="fas fa-code-branch"></i> Projects</a>
+            <a href="#about" class="btn"><i class="fas fa-terminal"></i> Initialize Profile</a>
+            <a href="#projects" class="btn"><i class="fas fa-network-wired"></i> Execute Projects</a>
             <a href="CV.pdf" target="_blank" download="Jayasankha_Madhusith_CV" class="btn">
-                <i class="fas fa-file-download"></i> Download CV
+                <i class="fas fa-file-download"></i> Extract CV
             </a>
         </div>
 
         <div class="social-links">
             <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/jayasankha-madhusith/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://t.me/benjaminus" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
             <a href="mailto:jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://wa.link/z1syel" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 </header>
 
 <div class="container" id="about">
-    <h2 class="reveal">// USER_PROFILE</h2>
+    <h2 class="reveal">// USER_PROFILE.EXE</h2>
     <div class="card reveal">
         <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 25px;">
-            Analytical and tech-driven <strong>Graduate</strong> from the <strong>University of Sri Jayewardenepura</strong>. 
-            By merging <strong>Psychology and Criminology</strong> with modern <strong>Web Technologies</strong>, I build digital solutions that are both technically robust and human-centric.
+            I am a <strong>Self-Taught Cybersecurity Enthusiast & Developer</strong>. <br><br>
+            With a unique foundation as an Arts Graduate (Psychology & Criminology & International Relationship) from the <strong>University of Sri Jayewardenepura</strong>, I leverage cognitive analysis to understand threat vectors. Driven entirely by passion and self-learning, I specialize in <strong>Digital Forensics, Malware Analysis, and Systems Programming (Rust/Python)</strong> to build powerful cyber-security tools.
         </p>
         
         <div class="grid">
             <div class="skill-item">
-                <div class="skill-info"><span>FULLSTACK_DEV (AI-ASSISTED)</span><span>85%</span></div>
+                <div class="skill-info"><span>PYTHON_AUTOMATION_&_RAT</span><span>90%</span></div>
+                <div class="progress-bar-container"><div class="progress-bar" data-width="90%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info"><span>DIGITAL_FORENSICS</span><span>85%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="85%"></div></div>
             </div>
             <div class="skill-item">
-                <div class="skill-info"><span>CYBER_SEC_RECON</span><span>75%</span></div>
+                <div class="skill-info"><span>RUST_MEMORY_MANIPULATION</span><span>75%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="75%"></div></div>
             </div>
             <div class="skill-item">
-                <div class="skill-info"><span>COGNITIVE_PSYCH_ANALYSIS</span><span>92%</span></div>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="92%"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-info"><span>DIGITAL_MARKETING_SEO</span><span>80%</span></div>
+                <div class="skill-info"><span>WEB_SECURITY_&_JS</span><span>80%</span></div>
                 <div class="progress-bar-container"><div class="progress-bar" data-width="80%"></div></div>
             </div>
         </div>
@@ -283,98 +360,166 @@
 </div>
 
 <div class="container" id="projects">
-    <h2 class="reveal">// PROJECT_MATRIX</h2>
+    <h2 class="reveal">// REPOSITORIES_MATRIX</h2>
     <div class="grid">
+        
+        <!-- Project 1 -->
         <div class="card reveal">
             <div class="tags">
-                <span class="tag">JAVASCRIPT</span><span class="tag">CHROME_EXT</span>
+                <span class="tag">RUST</span><span class="tag">MEMORY_SCANNER</span>
+            </div>
+            <h3>🦀 MemVault</h3>
+            <p>High-Performance Memory Token Hunter written in Rust. Designed to scan processes, map memory regions, and perform entropy-based analysis to identify critical artifacts.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/MemVault" target="_blank" class="card-btn">View_Source</a>
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="card reveal">
+            <div class="tags">
+                <span class="tag">PYTHON</span><span class="tag">FORENSICS</span><span class="tag">RAT</span>
+            </div>
+            <h3>AEGIS-X</h3>
+            <p>Ultimate Telegram Remote Administration Tool (RAT) integrated with powerful Live Forensic Triage modules for Windows systems. Detects suspicious activities silently.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/AEGIS-X" target="_blank" class="card-btn">View_Source</a>
+            </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="card reveal">
+            <div class="tags">
+                <span class="tag">PYTHON</span><span class="tag">GUI</span><span class="tag">RECON</span>
+            </div>
+            <h3>Cyber Sec Super Terminal</h3>
+            <p>An all-in-one Cyber Security Reconnaissance desktop app. Combines a web security inspector and a dark-themed customtkinter GUI for advanced target profiling.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/Cyber-Security-Recon-Super-Terminal-" target="_blank" class="card-btn">View_Source</a>
+            </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="card reveal">
+            <div class="tags">
+                <span class="tag">PYTHON</span><span class="tag">ANDROID_FORENSICS</span>
+            </div>
+            <h3>WhatsApp Legacy Bypass</h3>
+            <p>Advanced Android forensic tool designed to extract encrypted databases, keys, and thumbnails from non-rooted devices using the Legacy Downgrade Method.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass" target="_blank" class="card-btn">View_Source</a>
+            </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="card reveal">
+            <div class="tags">
+                <span class="tag">JAVASCRIPT</span><span class="tag">BROWSER_EXT</span>
             </div>
             <h3>Console Injection+</h3>
-            <p>A sophisticated utility suite published on the Chrome Web Store for advanced browser-level debugging and script injections.</p>
-            <br>
-            <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="btn" style="padding: 6px 12px; font-size: 0.75rem;">Source_Code</a>
+            <p>A powerful browser utility published on the Chrome Web Store to inject custom JavaScript, manage CSS filters, and handle network rules dynamically.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="card-btn">View_Source</a>
+            </div>
         </div>
 
+        <!-- Project 6 -->
         <div class="card reveal">
             <div class="tags">
-                <span class="tag">DESIGN</span><span class="tag">STRATEGY</span>
+                <span class="tag">BATCHFILE</span><span class="tag">ADB</span>
             </div>
-            <h3>Digital Media Suite</h3>
-            <p>Crafting impactful digital identities using SEO, Facebook Marketing, and modern UI/UX principles for optimized conversion.</p>
+            <h3>Android Forensic Analyzer</h3>
+            <p>Lightweight and automated forensic tool for Android devices. Leverages Android Debug Bridge (ADB) to perform deep system audits and network analysis.</p>
+            <div class="card-actions">
+                <a href="https://github.com/Jayasankha-dev/CYBER-FORENSIC-ANDROID-ANALYZER-v5.9" target="_blank" class="card-btn">View_Source</a>
+            </div>
         </div>
 
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">SECURITY</span><span class="tag">RECON</span>
-            </div>
-            <h3>Aeon Hunter Lite</h3>
-            <p>Specialized web security reconnaissance tool developed for DOM analysis and vulnerability identification.</p>
-        </div>
     </div>
 </div>
 
 <div class="container" id="experience">
-    <h2 class="reveal">// INTEL_LOG</h2>
+    <h2 class="reveal">// SYSTEM_LOGS</h2>
     <div class="grid">
         <div class="card reveal">
             <h3>Uni. of Sri Jayewardenepura</h3>
             <p>Bachelor of Arts (External)</p>
             <p style="font-size: 0.9rem; margin-top: 10px;">
-                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> Cognitive Psychology: <span class="result-highlight">A-</span><br>
-                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> English Proficiency: <span class="result-highlight">A- / B+</span><br>
-                <i class="fas fa-star" style="color:var(--accent); font-size: 0.8rem;"></i> ICT & Data Mgmt: <span class="result-highlight">B- / C+</span>
+                <i class="fas fa-brain accent-text" style="font-size: 0.8rem;"></i> Cognitive Psychology<br>
+                <i class="fas fa-fingerprint accent-text" style="font-size: 0.8rem;"></i> Criminology<br>
+                <i class="fas fa-globe accent-text" style="font-size: 0.8rem;"></i> International Relationship<br>
+                <i class="fas fa-laptop-code accent-text" style="font-size: 0.8rem;"></i> Applied IT & Tech Fundamentals
             </p>
-            <small style="color:var(--accent); display: block; margin-top: 10px;">GRADUATED 2024</small>
+            <small style="color:var(--accent); display: block; margin-top: 15px;">GRADUATED 2024</small>
         </div>
+        
         <div class="card reveal">
-            <h3>Asiri Home Building</h3>
-            <p>Management Assistant</p>
-            <p style="font-size: 0.9rem; color: var(--text-secondary);">Streamlining operational workflows and technical communications.</p>
-            <small style="color:var(--accent); display: block; margin-top: 10px;">2022 - 2023</small>
-        </div>
-        <div class="card reveal">
-            <h3>Radiant</h3>
-            <p>Technical Operations</p>
-            <p style="font-size: 0.9rem; color: var(--text-secondary);">System performance optimization and technical troubleshooting support.</p>
-            <small style="color:var(--accent); display: block; margin-top: 10px;">2023 - 2024</small>
+            <h3>Self-Taught Developer</h3>
+            <p>Cybersecurity & Tool Development</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px;">
+                Independently researched and developed forensic extraction tools, memory scanners, and secure remote administration bots. Proven ability to learn complex languages like Rust and Python rapidly.
+            </p>
+            <small style="color:var(--accent); display: block; margin-top: 15px;">PRESENT</small>
         </div>
     </div>
 </div>
 
 <footer>
-    <p style="margin-top: 10px;">&copy; 2026 JAYASANKHA MADHUSITH. ALL RIGHTS RESERVED.</p>
+    <p>&copy; 2026 JAYASANKHA MADHUSITH. CRAFTED WITH <span style="color:var(--accent);">PASSION & CODE</span>.</p>
 </footer>
+
+<!-- Floating WhatsApp Bot Icon (Bottom Left) -->
+<a href="https://wa.link/z1syel" target="_blank" class="floating-whatsapp" title="Chat with me!">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5e8b406269e9320caac0c521/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
     particlesJS('particles-js', {
         "particles": {
-            "number": { "value": 45 },
+            "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": "#00FF41" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.2 },
-            "size": { "value": 2 },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.1, "width": 1 },
-            "move": { "enable": true, "speed": 1.5 }
+            "opacity": { "value": 0.3, "random": true },
+            "size": { "value": 2, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.15, "width": 1 },
+            "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out" }
         },
         "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "grab" } }
-        }
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 3 } }
+        },
+        "retina_detect": true
     });
 
     // Typewriter
-    const text = "Creative Tech Specialist | Psychology Graduate | Interdisciplinary Academic";
+    const text = "Self-Taught Cybersecurity Enthusiast | Rust & Python Developer | Forensics Investigator";
     let i = 0;
     function typeWriter() {
         if (i < text.length) {
             document.getElementById("typewriter-text").innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 40);
+            setTimeout(typeWriter, 50);
         }
     }
     window.onload = typeWriter;
 
-    // Intersection Observer
+    // Intersection Observer for animations
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
