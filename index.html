@@ -3,534 +3,479 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayasankha Madhusith | Cybernetic Portfolio</title>
+    <title>Jayasankha Madhusith | SOC Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #030303;
-            --accent: #00FF41; 
-            --accent-glow: rgba(0, 255, 65, 0.4);
-            --card-bg: #0a0a0a;
-            --text-primary: #e0e0e0;
-            --text-secondary: #888;
-            --border-color: #1a1a1a;
-            --transition-speed: 0.4s;
+            --bg-color: #020202;
+            --main-green: #00ff41;
+            --dark-green: #003b00;
+            --alert-red: #ff003c;
+            --text-muted: #8a9c8e;
+            --border-glow: 0 0 10px rgba(0, 255, 65, 0.4);
+            --scanline-color: rgba(0, 255, 65, 0.03);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: crosshair;
+        }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-primary);
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--main-green);
+            font-family: 'Fira Code', monospace;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            line-height: 1.6;
         }
 
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            background: linear-gradient(to bottom, rgba(0, 255, 65, 0.03), transparent);
+        /* CRT Overlay Effect */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(0deg, var(--scanline-color), var(--scanline-color) 1px, transparent 1px, transparent 2px);
+            pointer-events: none; z-index: 9999;
+        }
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, transparent 60%, #000 100%);
+            pointer-events: none; z-index: 9998;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+        /* --- BACKGROUND CODE STREAM (News Ticker Effect) --- */
+        .bg-code-stream {
+            position: fixed; top: 10%; left: 0; width: 100vw; height: 80vh;
+            z-index: 0; overflow: hidden; opacity: 0.07;
+            pointer-events: none; display: flex; flex-direction: column;
+            justify-content: space-around; font-size: 1.2rem; white-space: nowrap;
         }
-        .reveal.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Header Section --- */
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            text-align: center;
-            padding: 20px;
-            z-index: 1;
-        }
-
-        .glitch-text {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: clamp(1.8rem, 6vw, 4.5rem);
-            font-weight: 700;
-            color: var(--accent);
-            text-shadow: 0 0 15px var(--accent-glow);
-            position: relative;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .typewriter {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            color: #ccc;
-            min-height: 1.5em;
-            border-right: 2px solid var(--accent);
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .btn-group {
-            margin-top: 40px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(0, 255, 65, 0.05);
-            transition: var(--transition-speed) ease;
-            box-shadow: 0 0 10px rgba(0,255,65,0.1);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            border-radius: 4px;
-        }
-
-        .btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            box-shadow: 0 0 25px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-
-        .social-links { margin-top: 35px; }
-        .social-links a {
-            color: var(--text-secondary);
-            font-size: 1.8rem;
-            margin: 0 12px;
-            transition: 0.3s;
-        }
-        .social-links a:hover { color: var(--accent); transform: translateY(-5px); }
-
-        /* --- Sections --- */
-        .container {
-            max-width: 1100px;
-            margin: 80px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        h2 {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 35px;
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 6px;
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .card h3 {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            margin-top: 10px;
-        }
+        .bg-code-row { display: flex; gap: 50px; text-shadow: 0 0 5px var(--main-green); }
+        .bg-code-row.left { animation: scroll-left 40s linear infinite; }
+        .bg-code-row.right { animation: scroll-right 50s linear infinite; }
         
-        .card p {
-            flex-grow: 1;
-            font-size: 0.95rem;
-            color: #bbb;
-        }
+        @keyframes scroll-left { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+        @keyframes scroll-right { 0% { transform: translateX(-100%); } 100% { transform: translateX(100vw); } }
 
-        .tags {
-            margin-bottom: 10px;
+        /* --- BOTTOM NEWS TICKER --- */
+        .bottom-ticker {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0, 10, 0, 0.9); border-top: 1px solid var(--main-green);
+            color: var(--main-green); font-size: 0.75rem; padding: 5px 0;
+            white-space: nowrap; overflow: hidden; z-index: 9997;
+            box-shadow: 0 -5px 15px rgba(0, 255, 65, 0.1);
         }
+        .ticker-content { display: inline-block; animation: scroll-left 30s linear infinite; }
+        .ticker-item { margin-right: 50px; }
+        .ticker-item span { color: var(--alert-red); font-weight: bold; }
 
-        .tag {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem;
-            background: rgba(0, 255, 65, 0.08);
-            color: var(--accent);
-            padding: 4px 10px;
-            margin-right: 5px;
-            margin-bottom: 8px;
-            display: inline-block;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-        }
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; opacity: 0.3; }
 
-        .card-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--dark-green); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--main-green); }
 
-        .card-btn {
-            padding: 8px 15px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
+        .reveal { opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.6s cubic-bezier(0.1, 1, 0.1, 1); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0) scale(1); }
 
-        .card-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
+        /* --- Cyber Playlist Player --- */
+        .cyber-player-container {
+            position: fixed; top: 20px; right: 20px; z-index: 10000;
+            background: rgba(0, 10, 0, 0.85); border: 1px solid var(--main-green); padding: 10px;
+            display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            backdrop-filter: blur(5px); min-width: 250px;
         }
+        .player-controls { display: flex; justify-content: space-between; align-items: center; }
+        .ctrl-btn { background: transparent; border: 1px solid var(--dark-green); color: var(--main-green); padding: 5px 10px; transition: 0.3s; font-family: 'Fira Code', monospace; font-size: 0.8rem; }
+        .ctrl-btn:hover { background: var(--main-green); color: #000; box-shadow: 0 0 10px var(--main-green); }
+        .audio-btn { flex-grow: 1; margin: 0 10px; font-weight: bold; }
+        .now-playing { font-size: 0.7rem; color: var(--text-muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-top: 1px dashed var(--dark-green); padding-top: 5px; }
+        .now-playing span { color: var(--main-green); animation: pulse-text 2s infinite; }
+        @keyframes pulse-text { 0% { opacity: 0.6; } 50% { opacity: 1; text-shadow: 0 0 5px var(--main-green); } 100% { opacity: 0.6; } }
 
-        /* Skills */
-        .skill-item { margin-bottom: 20px; }
-        .skill-info { display: flex; justify-content: space-between; font-family: 'Share Tech Mono'; font-size: 0.9rem; }
-        .progress-bar-container {
-            background-color: #1a1a1a;
-            height: 8px;
-            margin-top: 8px;
-            border-radius: 10px;
-        }
-        .progress-bar {
-            height: 100%;
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
-            width: 0;
-            transition: width 1.5s ease-in-out;
-            border-radius: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border-color);
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--text-secondary);
-            z-index: 1;
-            position: relative;
-            font-size: 0.9rem;
-        }
-
-        .result-highlight {
-            color: var(--accent);
-            font-weight: bold;
-        }
+        /* --- Header / Terminal Intro --- */
+        header { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; padding: 20px; }
+        .terminal-box { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--main-green); padding: 30px; width: 100%; max-width: 800px; box-shadow: var(--border-glow); position: relative; }
+        .terminal-box::before { content: "SEC_TERM_v9.0"; position: absolute; top: -12px; left: 20px; background: var(--bg-color); padding: 0 10px; font-size: 0.8rem; color: var(--text-muted); }
+        .sys-log { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; }
         
-        .accent-text {
-            color: var(--accent);
-        }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--main-green); margin: 15px 0; }
+        .typewriter { font-size: 1rem; color: var(--main-green); min-height: 1.5em; border-right: 10px solid var(--main-green); display: inline-block; margin-top: 15px; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { border-color: transparent; } }
 
-        /* --- Floating WhatsApp Bot (Moved to Left to avoid Tawk.to) --- */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 35px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-            text-decoration: none;
-        }
+        .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 30px; }
+        .cyber-btn { background: transparent; border: 1px solid var(--main-green); color: var(--main-green); padding: 12px 20px; text-transform: uppercase; font-family: 'Fira Code', monospace; font-weight: bold; font-size: 0.85rem; text-decoration: none; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+        .cyber-btn::before { content: "> "; opacity: 0; transition: 0.3s; }
+        .cyber-btn:hover { background: var(--main-green); color: var(--bg-color); box-shadow: 0 0 15px var(--main-green); }
+        .cyber-btn:hover::before { opacity: 1; }
 
-        .floating-whatsapp:hover {
-            transform: scale(1.1);
-            color: white;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
-        }
+        .social-links { margin-top: 25px; text-align: left; }
+        .social-links a { color: var(--text-muted); font-size: 1.5rem; margin-right: 20px; transition: 0.3s; }
+        .social-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
+        /* --- Sections Structure --- */
+        .container { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; position: relative; z-index: 1; }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 30px; display: flex; align-items: center; border-bottom: 1px solid var(--dark-green); padding-bottom: 10px; }
+        .section-title::before { content: "[ ]"; color: var(--main-green); margin-right: 15px; font-family: 'Fira Code', monospace; font-size: 1.2rem; }
 
-        @media (max-width: 768px) {
-            .container { margin: 50px auto; }
-            .card { padding: 20px; }
-            .btn-group { flex-direction: column; width: 100%; max-width: 300px; margin: 40px auto 0; }
-            .btn { width: 100%; text-align: center; }
-            .floating-whatsapp { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 30px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .hud-panel { background: rgba(0, 15, 0, 0.4); border: 1px solid var(--dark-green); border-left: 3px solid var(--main-green); padding: 25px; }
+        .hud-panel p { color: #ccc; font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px; }
+        .highlight { color: var(--main-green); background: rgba(0, 255, 65, 0.1); padding: 0 5px; }
+
+        .skill-row { margin-bottom: 15px; }
+        .skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; text-transform: uppercase; }
+        .data-meter { width: 100%; height: 6px; background: #111; border: 1px solid #333; display: flex; }
+        .data-fill { height: 100%; background: var(--main-green); box-shadow: 0 0 8px var(--main-green); width: 0; transition: width 2s cubic-bezier(0.1, 1, 0.1, 1); }
+
+        .project-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .intel-card { background: rgba(0, 0, 0, 0.6); border: 1px solid #222; padding: 20px; position: relative; transition: 0.3s; }
+        .intel-card:hover { border-color: var(--main-green); background: rgba(0, 20, 0, 0.8); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1); }
+        
+        .tags-cluster { margin-bottom: 15px; }
+        .badge { background: #111; color: var(--text-muted); border: 1px solid #333; font-size: 0.7rem; padding: 3px 8px; margin: 0 5px 5px 0; display: inline-block; }
+        .intel-card:hover .badge { color: var(--main-green); border-color: var(--dark-green); }
+        .intel-card h3 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .intel-card h3 i { color: var(--text-muted); font-size: 1rem; }
+        .intel-card p { font-size: 0.85rem; color: #999; margin-bottom: 20px; min-height: 60px; }
+        
+        /* GitHub Repo Stats */
+        .repo-stats { display: flex; gap: 15px; margin-bottom: 15px; font-size: 0.75rem; color: #777; }
+        .repo-stats span i { margin-right: 5px; color: var(--text-muted); }
+        .intel-card:hover .repo-stats span i { color: #f1e05a; /* yellow star */ }
+
+        .log-entry { border-left: 1px dashed var(--dark-green); padding: 0 0 30px 20px; position: relative; }
+        .log-entry::before { content: ">"; position: absolute; left: -8px; top: 0; background: var(--bg-color); color: var(--main-green); font-weight: bold; }
+        .log-entry h4 { color: #fff; margin-bottom: 5px; font-family: 'Orbitron'; }
+        .log-entry span.timestamp { color: var(--alert-red); font-size: 0.8rem; display: block; margin-bottom: 10px; }
+        .log-entry p { color: #bbb; font-size: 0.9rem; }
+
+        footer { text-align: center; padding: 30px 30px 60px; border-top: 1px solid #111; color: var(--text-muted); font-size: 0.8rem; position: relative; z-index: 1; }
+
+        /* Floating WhatsApp Bot (Left Side) */
+        .floating-action {
+            position: fixed; bottom: 40px; left: 30px; 
+            background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-green); color: var(--main-green);
+            width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
+            font-size: 24px; z-index: 1000; text-decoration: none; backdrop-filter: blur(5px); transition: 0.3s;
+        }
+        .floating-action:hover { background: var(--main-green); color: #000; box-shadow: 0 0 15px var(--main-green); }
+
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .cyber-player-container { top: auto; bottom: 90px; right: 20px; min-width: 200px; }
+            .bg-code-stream { font-size: 0.8rem; }
+            .bottom-ticker { bottom: 0; }
         }
     </style>
 </head>
 <body>
 
+<!-- BACKGROUND CODE STREAM -->
+<div class="bg-code-stream">
+    <div class="bg-code-row left">
+        <span>def bypass_legacy_auth(target_ip): # Extracting keystore... </span>
+        <span>fn scan_memory() -> Result<Vec<u8>, Error> { let dump = mem::read(); }</span>
+        <span>SELECT * FROM users WHERE access_level = 'ROOT' -- </span>
+        <span>[+] AEGIS-X Payload injected successfully in process svchost.exe</span>
+        <span>[WARNING] Etherscan Address Watch Alert: Transfer of WLFI detected.</span>
+    </div>
+    <div class="bg-code-row right">
+        <span>const obfuscate_js = (code) => { return btoa(code).replace(/=/g, ''); }</span>
+        <span>[OK] Checkers Pro extension verified. Supabase connection active.</span>
+        <span>rustc --release -C opt-level=3 memvault.rs && ./memvault</span>
+        <span>import socket; s=socket.socket(); s.connect(("192.168.1.5", 4444));</span>
+        <span>[LOG] Cyber Forensic Android Analyzer starting ADB daemon...</span>
+    </div>
+    <div class="bg-code-row left">
+        <span>void execute_shellcode(void* payload) { ((void(*)())payload)(); }</span>
+        <span>[INFO] Extracting encrypted databases and cryptographic keys from Android device...</span>
+        <span>import customtkinter as ctk; app = ctk.CTk(); app.title("Cyber Recon Terminal")</span>
+        <span>[!] Analyzing entropy of mapped memory regions... HIGH ENTROPY DETECTED.</span>
+        <span>Checking for open ports... 22/tcp OPEN ssh, 80/tcp OPEN http</span>
+    </div>
+</div>
+
+<!-- BOTTOM NEWS TICKER -->
+<div class="bottom-ticker">
+    <div class="ticker-content">
+        <span class="ticker-item"><span>[SYS_LOG]</span> Checkers Pro & Aeon Hunter Lite published on Chrome Web Store.</span>
+        <span class="ticker-item"><span>[ALERT]</span> Etherscan Wallet Watcher active on ETH Mainnet.</span>
+        <span class="ticker-item"><span>[INFO]</span> MemVault Rust Scanner v1.2 released on GitHub.</span>
+        <span class="ticker-item"><span>[UPDATE]</span> AEGIS-X RAT bypassing Windows Defender signatures.</span>
+        <span class="ticker-item"><span>[NEWS]</span> Firebase projects successfully migrating to Google AI Studio.</span>
+        <span class="ticker-item"><span>[STATUS]</span> System Administrator DB Jayasankha connected via secure shell.</span>
+    </div>
+</div>
+
+<!-- Cyber Playlist Player Widget -->
+<div class="cyber-player-container">
+    <div class="player-controls">
+        <button id="prev-btn" class="ctrl-btn"><i class="fas fa-backward"></i></button>
+        <button id="audio-toggle" class="ctrl-btn audio-btn"><i class="fas fa-volume-mute"></i> AUDIO: OFF</button>
+        <button id="next-btn" class="ctrl-btn"><i class="fas fa-forward"></i></button>
+    </div>
+    <div class="now-playing" id="now-playing-text">SYS.AUDIO_STATE: <span>IDLE</span></div>
+</div>
+
 <div id="particles-js"></div>
 
+<!-- INTRO TERMINAL -->
 <header>
-    <div class="header-content">
-        <p style="color: var(--accent); font-family: 'Share Tech Mono', monospace; letter-spacing: 2px;">[SYS_ADMIN_ACCESS_GRANTED]</p>
-        <h1 class="glitch-text" data-text="JAYASANKHA MADHUSITH">JAYASANKHA MADHUSITH</h1>
-        <div class="typewriter" id="typewriter-text"></div>
-        
-        <div class="btn-group">
-            <a href="#about" class="btn"><i class="fas fa-terminal"></i> Initialize Profile</a>
-            <a href="#projects" class="btn"><i class="fas fa-network-wired"></i> Execute Projects</a>
-            <a href="CV.pdf" target="_blank" download="Jayasankha_Madhusith_CV" class="btn">
-                <i class="fas fa-file-download"></i> Extract CV
-            </a>
+    <div class="terminal-box reveal">
+        <div class="glitch-wrapper">
+            <div class="sys-log">Initializing session... OK</div>
+            <div class="sys-log">Verifying Identity Hash... MATCH: [D.B. Jayasankha Madhusith]</div>
+            <div class="sys-log" style="color: var(--main-green);">Authentication Successful. Welcome Operator.</div>
+            <br>
+            <h1>JAYASANKHA MADHUSITH</h1>
+            <br>
+            <span style="color:#fff;">root@sys-admin:~#</span> <div class="typewriter" id="typing-text"></div>
         </div>
 
+        <div class="action-grid">
+    <a href="#dossier" class="cyber-btn">View Dossier</a>
+    <a href="#github-repos" class="cyber-btn">Access GitHub_Intel</a>
+    <a href="arsenal.html" class="cyber-btn">View Arsenal</a> <a href="CV.pdf" target="_blank" class="cyber-btn">Extract_CV.pdf</a>
+</div>
+
         <div class="social-links">
-            <a href="https://github.com/Jayasankha-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/jayasankha-madhusith/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://t.me/benjaminus" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-            <a href="mailto:jmadhumax@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/Jayasankha-dev" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/jayasankha-madhusith/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://t.me/benjaminus" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            <a href="mailto:jmadhumax@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </header>
 
-<div class="container" id="about">
-    <h2 class="reveal">// USER_PROFILE.EXE</h2>
-    <div class="card reveal">
-        <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 25px;">
-            I am a <strong>Self-Taught Cybersecurity Enthusiast & Developer</strong>. <br><br>
-            With a unique foundation as an Arts Graduate (Psychology & Criminology & International Relationship) from the <strong>University of Sri Jayewardenepura</strong>, I leverage cognitive analysis to understand threat vectors. Driven entirely by passion and self-learning, I specialize in <strong>Digital Forensics, Malware Analysis, and Systems Programming (Rust/Python)</strong> to build powerful cyber-security tools.
-        </p>
-        
-        <div class="grid">
-            <div class="skill-item">
-                <div class="skill-info"><span>PYTHON_AUTOMATION_&_RAT</span><span>90%</span></div>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="90%"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-info"><span>DIGITAL_FORENSICS</span><span>85%</span></div>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="85%"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-info"><span>RUST_MEMORY_MANIPULATION</span><span>75%</span></div>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="75%"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-info"><span>WEB_SECURITY_&_JS</span><span>80%</span></div>
-                <div class="progress-bar-container"><div class="progress-bar" data-width="80%"></div></div>
-            </div>
+<!-- DOSSIER SECTION -->
+<div class="container" id="dossier">
+    <h2 class="section-title reveal">OPERATOR_DOSSIER</h2>
+    <div class="about-grid">
+        <div class="hud-panel reveal">
+            <p><strong>CLASSIFICATION:</strong> Self-Taught Cybersecurity Specialist & Tools Developer.</p>
+            <p>Operating with a unique cognitive framework derived from a <span class="highlight">B.A. in Psychology & Criminology</span> (University of Sri Jayewardenepura). I analyze human-centric threat vectors while engineering low-level systemic countermeasures.</p>
+            <p>Specializing in <strong>Digital Forensics, Malware Analysis, Blockchain Reconnaissance, and Systems Programming (Rust/Python)</strong> to architect uncompromising offensive and defensive security tools.</p>
+        </div>
+        <div class="hud-panel reveal">
+            <div class="skill-row"><div class="skill-header"><span>PYTHON_AUTOMATION & RAT</span> <span>90%</span></div><div class="data-meter"><div class="data-fill" data-width="90%"></div></div></div>
+            <div class="skill-row"><div class="skill-header"><span>DIGITAL_FORENSICS</span> <span>85%</span></div><div class="data-meter"><div class="data-fill" data-width="85%"></div></div></div>
+            <div class="skill-row"><div class="skill-header"><span>RUST_MEMORY_MANIPULATION</span> <span>75%</span></div><div class="data-meter"><div class="data-fill" data-width="75%"></div></div></div>
+            <div class="skill-row"><div class="skill-header"><span>WEB_SEC & JS OBFUSCATION</span> <span>85%</span></div><div class="data-meter"><div class="data-fill" data-width="85%"></div></div></div>
         </div>
     </div>
 </div>
 
-<div class="container" id="projects">
-    <h2 class="reveal">// REPOSITORIES_MATRIX</h2>
-    <div class="grid">
+<!-- GITHUB INTEL (NEW SECTION) -->
+<div class="container" id="github-repos">
+    <h2 class="section-title reveal">OPEN_SOURCE_INTEL (GITHUB_REPOS)</h2>
+    <div class="project-matrix">
         
-        <!-- Project 1 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">RUST</span><span class="tag">MEMORY_SCANNER</span>
+        <!-- Repo 1 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">Forensics</span></div>
+            <h3><i class="far fa-folder-open"></i> AEGIS-X <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-star"></i> Top Rated</span>
+                <span><i class="fas fa-code-branch"></i> Active</span>
             </div>
-            <h3>🦀 MemVault</h3>
-            <p>High-Performance Memory Token Hunter written in Rust. Designed to scan processes, map memory regions, and perform entropy-based analysis to identify critical artifacts.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/MemVault" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>Ultimate Telegram Remote Administration Tool (RAT) integrated with live forensic triage modules. Silently maps out and detects anomalous activities.</p>
+            <a href="https://github.com/Jayasankha-dev/AEGIS-X" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
         </div>
 
-        <!-- Project 2 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">PYTHON</span><span class="tag">FORENSICS</span><span class="tag">RAT</span>
+        <!-- Repo 2 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">Rust</span><span class="badge">Memory Scanner</span></div>
+            <h3><i class="far fa-folder-open"></i> MemVault <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-star"></i> Trending</span>
+                <span><i class="fas fa-microchip"></i> Low-level</span>
             </div>
-            <h3>AEGIS-X</h3>
-            <p>Ultimate Telegram Remote Administration Tool (RAT) integrated with powerful Live Forensic Triage modules for Windows systems. Detects suspicious activities silently.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/AEGIS-X" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>High-Performance Memory Token Hunter. Scans processes, maps memory regions, and executes entropy-based analysis to extract critical artifacts directly from RAM.</p>
+            <a href="https://github.com/Jayasankha-dev/MemVault" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
         </div>
 
-        <!-- Project 3 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">PYTHON</span><span class="tag">GUI</span><span class="tag">RECON</span>
+        <!-- Repo 3 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">GUI</span></div>
+            <h3><i class="far fa-folder-open"></i> Cyber-Sec-Terminal <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-network-wired"></i> Recon</span>
+                <span><i class="fas fa-shield-alt"></i> Red Team</span>
             </div>
-            <h3>Cyber Sec Super Terminal</h3>
-            <p>An all-in-one Cyber Security Reconnaissance desktop app. Combines a web security inspector and a dark-themed customtkinter GUI for advanced target profiling.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/Cyber-Security-Recon-Super-Terminal-" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>Comprehensive Reconnaissance desktop suite. Features a web security inspector and a customtkinter GUI for rapid, deep-dive target profiling.</p>
+            <a href="https://github.com/Jayasankha-dev/Cyber-Security-Recon-Super-Terminal-" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
         </div>
 
-        <!-- Project 4 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">PYTHON</span><span class="tag">ANDROID_FORENSICS</span>
+        <!-- Repo 4 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">Batchfile</span><span class="badge">ADB</span></div>
+            <h3><i class="far fa-folder-open"></i> Android-Forensic-Analyzer <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-mobile-alt"></i> Mobile Sec</span>
             </div>
-            <h3>WhatsApp Legacy Bypass</h3>
-            <p>Advanced Android forensic tool designed to extract encrypted databases, keys, and thumbnails from non-rooted devices using the Legacy Downgrade Method.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>Automated ADB-based triage utility. Executes deep system audits, network analysis, and permission mapping across connected Android devices.</p>
+            <a href="https://github.com/Jayasankha-dev/CYBER-FORENSIC-ANDROID-ANALYZER-v5.9" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
         </div>
 
-        <!-- Project 5 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">JAVASCRIPT</span><span class="tag">BROWSER_EXT</span>
+        <!-- Repo 5 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">Cryptography</span></div>
+            <h3><i class="far fa-folder-open"></i> WhatsApp-Legacy-Bypass <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-key"></i> Decryption</span>
             </div>
-            <h3>Console Injection+</h3>
-            <p>A powerful browser utility published on the Chrome Web Store to inject custom JavaScript, manage CSS filters, and handle network rules dynamically.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/console-injection-plus" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>Extracts encrypted databases and cryptographic keys from non-rooted Android devices via the Legacy Downgrade extraction method.</p>
+            <a href="https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
         </div>
 
-        <!-- Project 6 -->
-        <div class="card reveal">
-            <div class="tags">
-                <span class="tag">BATCHFILE</span><span class="tag">ADB</span>
+        <!-- Repo 6 -->
+        <div class="intel-card reveal">
+            <div class="tags-cluster"><span class="badge">JavaScript</span><span class="badge">Supabase</span></div>
+            <h3><i class="far fa-folder-open"></i> Checkers Pro Ext. <i class="fab fa-chrome" style="color: #fff; font-size:1.2rem;"></i></h3>
+            <div class="repo-stats">
+                <span><i class="fas fa-lock"></i> Obfuscated JS</span>
             </div>
-            <h3>Android Forensic Analyzer</h3>
-            <p>Lightweight and automated forensic tool for Android devices. Leverages Android Debug Bridge (ADB) to perform deep system audits and network analysis.</p>
-            <div class="card-actions">
-                <a href="https://github.com/Jayasankha-dev/CYBER-FORENSIC-ANDROID-ANALYZER-v5.9" target="_blank" class="card-btn">View_Source</a>
-            </div>
+            <p>Advanced browser extension published on the Chrome Web Store. Engineered with Supabase backends and robust JS protection utilizing Obfuscator.io.</p>
+            <a href="#" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; border-color: #555; color: #555; cursor: not-allowed; display: block;">Source_Closed</a>
         </div>
 
     </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="https://github.com/Jayasankha-dev?tab=repositories" target="_blank" class="cyber-btn" style="font-size: 1rem; padding: 15px 30px;">[+] EXPLORE_ALL_REPOSITORIES</a>
+    </div>
 </div>
 
-<div class="container" id="experience">
-    <h2 class="reveal">// SYSTEM_LOGS</h2>
-    <div class="grid">
-        <div class="card reveal">
-            <h3>Uni. of Sri Jayewardenepura</h3>
-            <p>Bachelor of Arts (External)</p>
-            <p style="font-size: 0.9rem; margin-top: 10px;">
-                <i class="fas fa-brain accent-text" style="font-size: 0.8rem;"></i> Cognitive Psychology<br>
-                <i class="fas fa-fingerprint accent-text" style="font-size: 0.8rem;"></i> Criminology<br>
-                <i class="fas fa-globe accent-text" style="font-size: 0.8rem;"></i> International Relationship<br>
-                <i class="fas fa-laptop-code accent-text" style="font-size: 0.8rem;"></i> Applied IT & Tech Fundamentals
-            </p>
-            <small style="color:var(--accent); display: block; margin-top: 15px;">GRADUATED 2024</small>
+<!-- SYSTEM LOGS -->
+<div class="container" id="logs">
+    <h2 class="section-title reveal">SYSTEM_LOGS</h2>
+    <div class="hud-panel reveal" style="padding-left: 40px;">
+        <div class="log-entry">
+            <span class="timestamp">[ CURRENT ] STATUS: ACTIVE_DEVELOPMENT</span>
+            <h4>Self-Taught Sec-Dev & Threat Analyst</h4>
+            <p>Architecting offensive/defensive scripts, memory manipulation tools (Rust), and monitoring blockchain wallet telemetry.</p>
         </div>
-        
-        <div class="card reveal">
-            <h3>Self-Taught Developer</h3>
-            <p>Cybersecurity & Tool Development</p>
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px;">
-                Independently researched and developed forensic extraction tools, memory scanners, and secure remote administration bots. Proven ability to learn complex languages like Rust and Python rapidly.
-            </p>
-            <small style="color:var(--accent); display: block; margin-top: 15px;">PRESENT</small>
+        <div class="log-entry" style="border-left: none; padding-bottom: 0;">
+            <span class="timestamp">[ 2024 ] STATUS: GRADUATED</span>
+            <h4>University of Sri Jayewardenepura</h4>
+            <p>Bachelor of Arts (External). Core Modules: Cognitive Psychology, Criminology, International Relations, and Applied Tech Fundamentals.</p>
         </div>
     </div>
 </div>
 
-<footer>
-    <p>&copy; 2026 JAYASANKHA MADHUSITH. CRAFTED WITH <span style="color:var(--accent);">PASSION & CODE</span>.</p>
-</footer>
+<footer><p>DATA_STREAM_TERMINATED. // &copy; 2026 JAYASANKHA MADHUSITH.</p></footer>
 
-<!-- Floating WhatsApp Bot Icon (Bottom Left) -->
-<a href="https://wa.link/z1syel" target="_blank" class="floating-whatsapp" title="Chat with me!">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<a href="https://wa.link/z1syel" target="_blank" class="floating-action" title="Establish Secure Comms"><i class="fab fa-whatsapp"></i></a>
 
-<!--Start of Tawk.to Script-->
+<!-- Tawk.to Script -->
 <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5e8b406269e9320caac0c521/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5e8b406269e9320caac0c521/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
 </script>
-<!--End of Tawk.to Script-->
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
+    /* Particles & Typing FX */
     particlesJS('particles-js', {
-        "particles": {
-            "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#00FF41" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.3, "random": true },
-            "size": { "value": 2, "random": true },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00FF41", "opacity": 0.15, "width": 1 },
-            "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out" }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 3 } }
-        },
+        "particles": { "number": { "value": 80 }, "color": { "value": "#00ff41" }, "shape": { "type": "circle" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#00ff41", "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } },
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } } },
         "retina_detect": true
     });
 
-    // Typewriter
-    const text = "Self-Taught Cybersecurity Enthusiast | Rust & Python Developer | Forensics Investigator";
-    let i = 0;
-    function typeWriter() {
-        if (i < text.length) {
-            document.getElementById("typewriter-text").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        }
-    }
-    window.onload = typeWriter;
+    const text = "./execute_cyber_security_profile.sh --fetch-github-intel"; let i = 0;
+    function typeWriter() { if (i < text.length) { document.getElementById("typing-text").innerHTML += text.charAt(i); i++; setTimeout(typeWriter, 40); } }
+    setTimeout(typeWriter, 1000);
 
-    // Intersection Observer for animations
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
-                const bars = entry.target.querySelectorAll('.progress-bar');
-                bars.forEach(bar => bar.style.width = bar.getAttribute('data-width'));
+                entry.target.querySelectorAll('.data-fill').forEach(bar => { setTimeout(() => { bar.style.width = bar.getAttribute('data-width'); }, 300); });
             }
         });
-    }, { threshold: 0.15 });
-
+    }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* --- Cyber Playlist Logic --- */
+    /* 
+       METHANATA OYAGE SONGS DAGANNA. 
+       url ekata oyage .mp3 file path eka danna (e.g., 'audio/hislerim.mp3').
+    */
+    const playlist = [
+        { name: "Sound Track 01", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+        { name: "Sound Track 02", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+        { name: "Sound Track 03", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+    ];
+
+    let currentTrack = 0;
+    let isPlaying = false;
+    let audio = new Audio(playlist[currentTrack].url);
+    audio.volume = 0.6;
+
+    const audioBtn = document.getElementById("audio-toggle");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const nowPlayingText = document.getElementById("now-playing-text");
+
+    function updatePlayerUI() {
+        if (isPlaying) {
+            audioBtn.innerHTML = '<i class="fas fa-volume-up"></i> AUDIO: ON';
+            audioBtn.style.background = "var(--main-green)";
+            audioBtn.style.color = "#000";
+            nowPlayingText.innerHTML = `PLAYING: <span>${playlist[currentTrack].name}</span>`;
+        } else {
+            audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i> AUDIO: OFF';
+            audioBtn.style.background = "transparent";
+            audioBtn.style.color = "var(--main-green)";
+            nowPlayingText.innerHTML = `SYS.AUDIO_STATE: <span>IDLE</span>`;
+        }
+    }
+
+    function loadTrack(index) {
+        audio.src = playlist[index].url;
+        if (isPlaying) { audio.play(); }
+        updatePlayerUI();
+    }
+
+    audioBtn.addEventListener("click", () => {
+        if (isPlaying) { audio.pause(); isPlaying = false; } 
+        else { audio.play().catch(()=>console.log("Audio play error")); isPlaying = true; }
+        updatePlayerUI();
+    });
+
+    nextBtn.addEventListener("click", () => {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        loadTrack(currentTrack);
+    });
+
+    prevBtn.addEventListener("click", () => {
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrack);
+    });
+
+    audio.addEventListener("ended", () => {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        loadTrack(currentTrack);
+    });
+
+    document.body.addEventListener('click', function initAudio() {
+        if (!isPlaying) {
+            audio.play().then(() => {
+                isPlaying = true;
+                updatePlayerUI();
+            }).catch(e => console.log("Autoplay waiting for user action."));
+        }
+        document.body.removeEventListener('click', initAudio);
+    }, { once: true });
 </script>
 
 </body>
