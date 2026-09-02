@@ -258,7 +258,7 @@ ${CV_DETAILS.referees.map((r) => `• ${r.name} - ${r.title}\n  Email: ${r.email
               <div className="w-full max-w-xs space-y-3">
                 <input
                   type="password"
-                  placeholder="Enter password (unlock-pdf)"
+                  placeholder="Enter password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
