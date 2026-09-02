@@ -1,5 +1,4 @@
 import { jsPDF } from 'jspdf';
-import { PDFDocument } from 'pdf-lib'; // <-- NEW IMPORT for encryption
 import { OPERATOR_PROFILE } from '../data/portfolioData';
 
 export const CV_DETAILS = {
@@ -98,19 +97,12 @@ export type CVTemplateType = 'ats-executive' | 'cyber-dark';
 
 /**
  * Generates an ATS-compliant, executive-grade PDF resume with large readable typography,
- * fills the entire A4 sheet with elegant vertical balance, and encrypts it with a password.
- *
- * @param filename - The name of the file (used for reference, but download is handled by caller)
- * @param template - 'ats-executive' or 'cyber-dark'
- * @param password - The password to lock the PDF (if empty, no encryption is applied)
- * @returns Promise<Uint8Array> - The encrypted PDF bytes ready for download
+ * filling the entire A4 sheet with elegant vertical balance and no awkward bottom void.
  */
-export async function generateCVPdf(
-  filename: string = 'D_B_Jayasankha_Madhusith_CV.pdf',
-  template: CVTemplateType = 'ats-executive',
-  password: string = ''
-): Promise<Uint8Array> {
-  // 1. Build the PDF using jsPDF (your existing drawing logic)
+export function generateCVPdf(
+  filename = 'D_B_Jayasankha_Madhusith_CV.pdf',
+  template: CVTemplateType = 'ats-executive'
+) {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
@@ -398,36 +390,6 @@ export async function generateCVPdf(
     doc.text(`Phone: ${ref.phone}`, colX + 4.0, y + 18.5);
   });
 
-  // ================================================================
-  // 8. NEW: Convert jsPDF output to ArrayBuffer and Encrypt with pdf-lib
-  // ================================================================
-
-  // Step A: Get the PDF as an ArrayBuffer from jsPDF
-  const pdfBytes = doc.output('arraybuffer');
-
-  // Step B: Load the PDF into pdf-lib
-  const pdfDoc = await PDFDocument.load(pdfBytes);
-
-  // Step C: Apply encryption if a password is provided
-  if (password) {
-    pdfDoc.encrypt({
-      userPassword: password,      // The password users must enter to open it
-      ownerPassword: password,     // We'll set the same password for ownership
-      permissions: {
-        printing: 'highResolution', // Allow high-quality printing
-        modifying: false,           // Prevent editing the PDF content
-        copying: true,              // Allow copying text
-        annotating: false,          // Prevent adding annotations
-        fillingForms: false,
-        contentAccessibility: true,
-        documentAssembly: false,
-      },
-    });
-  }
-
-  // Step D: Save the encrypted (or plain) PDF as a Uint8Array
-  const encryptedPdfBytes = await pdfDoc.save();
-
-  // Step E: Return the bytes so the caller (CVModal) can handle the download
-  return encryptedPdfBytes;
+  // Save the generated PDF directly to the user's browser (Strictly 1 Page)
+  doc.save(filename);
 }
