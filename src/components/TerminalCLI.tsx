@@ -57,7 +57,6 @@ export const TerminalCLI: React.FC<TerminalCLIProps> = ({ onOpenCV, onTriggerSca
  • scan       : Initiate real-time memory & network heuristics scan
  • telemetry  : View active SOC node statistics & DEFCON state
  • send       : Transmit an encrypted contact dispatch to Operator
- • cv         : Extract & view latest engineering curriculum vitae
  • contact    : List verified cryptographic comms channels
  • clear      : Flush CLI buffer
  • whoami     : Display active session security level
@@ -144,23 +143,53 @@ Location: ${OPERATOR_PROFILE.location}`
           ]);
           break;
 
+        // ============================================================
+        // ❌ DISABLED CV COMMAND (Normal users get ACCESS DENIED)
+        // ============================================================
         case 'cv':
         case 'cat cv':
         case 'cat cv.pdf':
         case 'download cv':
-          try {
-            generateCVPdf('D_B_Jayasankha_Madhusith_CV.pdf');
-          } catch (e) {
-            console.error(e);
-          }
           setHistory((prev) => [
             ...prev,
             {
-              text: `[✓] Generating and downloading 'D_B_Jayasankha_Madhusith_CV.pdf'...\n[+] Dossier modal opened.`,
-              isSuccess: true
+              text: `[!] ACCESS DENIED: CV extraction is disabled by system policy.\n[!] This incident has been logged.`,
+              isError: true
             }
           ]);
-          if (onOpenCV) onOpenCV();
+          break;
+
+        // ============================================================
+        // 🕵️‍♂️ SECRET BACKDOOR COMMANDS (Bypass all locks)
+        // These are NOT listed in 'help' and NOT in autocomplete.
+        // ============================================================
+        case 'extract-cv':
+        case '--pull':
+        case 'get-dossier':
+        case 'sys-inject-cv':
+        case 'root-access':
+          try {
+            // Directly generate and download the PDF (Bypasses Modal & Password)
+            // If you want the PDF to be encrypted, pass 'unlock-pdf' as the 3rd param.
+            // If you want it completely unlocked, just pass the first two params.
+            generateCVPdf('D_B_Jayasankha_Madhusith_CV.pdf', 'ats-executive');
+            
+            setHistory((prev) => [
+              ...prev,
+              {
+                text: `[✓] BACKDOOR EXTRACTION SUCCESSFUL.\n[+] CV Dossier downloaded directly. (Bypass Mode Active)`,
+                isSuccess: true
+              }
+            ]);
+          } catch (e) {
+            setHistory((prev) => [
+              ...prev,
+              {
+                text: `[!] Backdoor extraction failed. Check console.`,
+                isError: true
+              }
+            ]);
+          }
           break;
 
         case 'whoami':
@@ -314,8 +343,8 @@ Location: ${OPERATOR_PROFILE.location}`
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      // Auto complete suggestions
-      const candidates = ['help', 'about', 'skills', 'projects', 'scan', 'telemetry', 'send', 'cv', 'contact', 'clear'];
+      // 🔥 REMOVED 'cv' from autocomplete so it doesn't pop up
+      const candidates = ['help', 'about', 'skills', 'projects', 'scan', 'telemetry', 'send', 'contact', 'clear'];
       const match = candidates.find((c) => c.startsWith(inputVal.toLowerCase().trim()));
       if (match) {
         setInputVal(match);
@@ -325,7 +354,8 @@ Location: ${OPERATOR_PROFILE.location}`
     }
   };
 
-  const quickCommands = ['help', 'about', 'skills', 'projects', 'scan', 'send', 'cv', 'clear'];
+  // 🔥 REMOVED 'cv' from quick commands chips
+  const quickCommands = ['help', 'about', 'skills', 'projects', 'scan', 'send', 'clear'];
 
   return (
     <div className="w-full bg-[#010602]/95 border border-[#00ff41]/50 rounded-lg p-3 md:p-4 font-mono text-xs md:text-sm backdrop-blur-md shadow-[0_0_25px_rgba(0,255,65,0.12)] relative overflow-hidden flex flex-col my-4">
@@ -419,7 +449,7 @@ Location: ${OPERATOR_PROFILE.location}`
         </button>
       </div>
 
-      {/* Quick Access Command Chips */}
+      {/* Quick Access Command Chips - CV is GONE */}
       <div className="flex items-center gap-1.5 mt-2.5 flex-wrap text-[10px] text-gray-400 select-none">
         <span className="flex items-center gap-1 text-gray-500">
           <Sparkles className="w-2.5 h-2.5 text-[#00ff41]" /> Quick:
