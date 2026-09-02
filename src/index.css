@@ -15,7 +15,7 @@
   }
 }
 
-/* CRT Scanline Overlay */
+/* ===== CRT SCANLINE OVERLAY ===== */
 .crt-overlay::after {
   content: "";
   position: fixed;
@@ -46,7 +46,7 @@
   z-index: 9998;
 }
 
-/* Custom Cyber Glows */
+/* ===== CYBER GLOWS ===== */
 .text-glow {
   text-shadow: 0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3);
 }
@@ -55,7 +55,7 @@
   box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
 }
 
-/* Animations */
+/* ===== ANIMATIONS ===== */
 @keyframes streamLeft {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
@@ -93,7 +93,7 @@
   animation-play-state: paused;
 }
 
-/* Custom Scrollbars */
+/* ===== CUSTOM SCROLLBARS ===== */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -128,7 +128,7 @@
   background: #00ff41;
 }
 
-/* Print Optimization for ATS Resume */
+/* ===== PRINT OPTIMIZATION (ATS RESUME) ===== */
 @page {
   size: A4 portrait;
   margin: 8mm;
@@ -168,3 +168,251 @@
     break-inside: avoid !important;
   }
 }
+
+/* ============================================================
+   MOBILE-FIRST RESPONSIVE IMPROVEMENTS (NEW)
+   ============================================================ */
+
+/* ----- Base Mobile Adjustments ----- */
+/* Default styles are for mobile (small screens) */
+body {
+  font-size: 14px;           /* Smaller base font on mobile */
+  line-height: 1.6;
+  padding: 0.5rem;
+}
+
+/* Containers get full width with side padding */
+.container,
+.cv-print-container,
+.main-content {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Images scale down to fit */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduce heading sizes on mobile */
+h1 {
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 1.2rem;
+}
+
+/* Buttons and interactive elements get larger touch targets */
+button,
+a,
+input,
+select,
+textarea {
+  font-size: 1rem;
+  min-height: 44px;          /* Apple HIG minimum touch target */
+  min-width: 44px;
+}
+
+/* ----- Mobile Navigation (Hamburger) ----- */
+/* Assuming your nav has these classes – adjust as needed */
+.nav-menu {
+  display: none;             /* Hidden on mobile by default */
+  flex-direction: column;
+  width: 100%;
+  background: rgba(2, 7, 3, 0.95);
+  padding: 1rem 0;
+  border-top: 1px solid var(--main-green);
+}
+
+.nav-menu.open {
+  display: flex;             /* Shown when toggled */
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: var(--main-green);
+  transition: all 0.3s ease;
+}
+
+/* Optional: animate hamburger to "X" when open */
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ----- Mobile Grid & Layout ----- */
+/* Default to 1 column on mobile */
+.grid {
+  grid-template-columns: 1fr !important;  /* Override any fixed columns */
+  gap: 1rem;
+}
+
+/* Cards, sections stack vertically */
+.flex-row {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-direction: column;
+}
+
+/* Reduce padding/margins on mobile */
+.p-4  { padding: 0.75rem !important; }
+.p-6  { padding: 1rem !important; }
+.p-8  { padding: 1.25rem !important; }
+.m-4  { margin: 0.75rem !important; }
+.m-6  { margin: 1rem !important; }
+.m-8  { margin: 1.25rem !important; }
+
+/* ----- Mobile Ticker / Stream ----- */
+.animate-ticker {
+  animation-duration: 20s;   /* Faster on mobile to keep it moving */
+}
+
+/* ============================================================
+   TABLET & DESKTOP UPGRADES (min-width breakpoints)
+   ============================================================ */
+
+/* Tablet (≥ 640px) */
+@media (min-width: 640px) {
+  body {
+    font-size: 15px;
+    padding: 0.75rem;
+  }
+
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.3rem; }
+
+  /* Show navigation horizontally, hide hamburger */
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row;
+    width: auto;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .hamburger {
+    display: none !important;
+  }
+
+  /* Grid: 2 columns */
+  .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
+}
+
+/* Desktop (≥ 1024px) */
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
+    padding: 1rem;
+  }
+
+  .container {
+    max-width: 1024px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  h1 { font-size: 2.8rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.5rem; }
+
+  /* Grid: 3 or 4 columns – choose your layout */
+  .grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.5rem;
+  }
+
+  /* Restore original padding for larger screens if needed */
+  .p-4  { padding: 1rem !important; }
+  .p-6  { padding: 1.5rem !important; }
+  .p-8  { padding: 2rem !important; }
+  .m-4  { margin: 1rem !important; }
+  .m-6  { margin: 1.5rem !important; }
+  .m-8  { margin: 2rem !important; }
+}
+
+/* Large Desktop (≥ 1280px) – optional */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+  .grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* ============================================================
+   ADDITIONAL UTILITY HELPERS FOR RESPONSIVENESS
+   ============================================================ */
+
+/* Hide on mobile, show on tablet+ */
+.hide-mobile {
+  display: none;
+}
+@media (min-width: 640px) {
+  .hide-mobile {
+    display: block;
+  }
+}
+
+/* Show on mobile, hide on tablet+ */
+.show-mobile {
+  display: block;
+}
+@media (min-width: 640px) {
+  .show-mobile {
+    display: none;
+  }
+}
+
+/* Text alignment helpers */
+.text-center-mobile {
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .text-center-mobile {
+    text-align: inherit;
+  }
+}y
