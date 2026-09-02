@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayasankha Madhusith | SOC Dashboard</title>
+    <title>Jayasankha Madhusith | SOC Dashboard v10.5</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -13,23 +13,16 @@
             --dark-green: #003b00;
             --alert-red: #ff003c;
             --text-muted: #8a9c8e;
-            --border-glow: 0 0 10px rgba(0, 255, 65, 0.4);
+            --border-glow: 0 0 15px rgba(0, 255, 65, 0.4);
             --scanline-color: rgba(0, 255, 65, 0.03);
+            --glass-bg: rgba(0, 15, 0, 0.55);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            cursor: crosshair;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--main-green);
-            font-family: 'Fira Code', monospace;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            background-color: var(--bg-color); color: var(--main-green);
+            font-family: 'Fira Code', monospace; overflow-x: hidden; scroll-behavior: smooth;
         }
 
         /* CRT Overlay Effect */
@@ -44,34 +37,33 @@
             pointer-events: none; z-index: 9998;
         }
 
-        /* --- BACKGROUND CODE STREAM (News Ticker Effect) --- */
+        /* Background Code Stream */
         .bg-code-stream {
             position: fixed; top: 10%; left: 0; width: 100vw; height: 80vh;
-            z-index: 0; overflow: hidden; opacity: 0.07;
-            pointer-events: none; display: flex; flex-direction: column;
-            justify-content: space-around; font-size: 1.2rem; white-space: nowrap;
+            z-index: 0; overflow: hidden; opacity: 0.1; pointer-events: none;
+            display: flex; flex-direction: column; justify-content: space-around;
+            font-size: 1.2rem; white-space: nowrap;
         }
         .bg-code-row { display: flex; gap: 50px; text-shadow: 0 0 5px var(--main-green); }
-        .bg-code-row.left { animation: scroll-left 40s linear infinite; }
-        .bg-code-row.right { animation: scroll-right 50s linear infinite; }
+        .bg-code-row.left { animation: scroll-left 45s linear infinite; }
+        .bg-code-row.right { animation: scroll-right 55s linear infinite; }
         
         @keyframes scroll-left { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes scroll-right { 0% { transform: translateX(-100%); } 100% { transform: translateX(100vw); } }
 
-        /* --- BOTTOM NEWS TICKER --- */
+        /* Bottom News Ticker */
         .bottom-ticker {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(0, 10, 0, 0.9); border-top: 1px solid var(--main-green);
-            color: var(--main-green); font-size: 0.75rem; padding: 5px 0;
+            background: rgba(0, 10, 0, 0.95); border-top: 1px solid var(--main-green);
+            color: var(--main-green); font-size: 0.75rem; padding: 6px 0;
             white-space: nowrap; overflow: hidden; z-index: 9997;
             box-shadow: 0 -5px 15px rgba(0, 255, 65, 0.1);
         }
-        .ticker-content { display: inline-block; animation: scroll-left 30s linear infinite; }
+        .ticker-content { display: inline-block; animation: scroll-left 35s linear infinite; }
         .ticker-item { margin-right: 50px; }
         .ticker-item span { color: var(--alert-red); font-weight: bold; }
 
-        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; opacity: 0.3; }
-
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; opacity: 0.25; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: var(--dark-green); }
@@ -80,94 +72,113 @@
         .reveal { opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.6s cubic-bezier(0.1, 1, 0.1, 1); }
         .reveal.is-visible { opacity: 1; transform: translateY(0) scale(1); }
 
-        /* --- Cyber Playlist Player --- */
+        /* Cyber Playlist Player */
         .cyber-player-container {
             position: fixed; top: 20px; right: 20px; z-index: 10000;
-            background: rgba(0, 10, 0, 0.85); border: 1px solid var(--main-green); padding: 10px;
+            background: rgba(0, 10, 0, 0.85); border: 1px solid var(--main-green); border-radius: 6px; padding: 10px;
             display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
             backdrop-filter: blur(5px); min-width: 250px;
         }
         .player-controls { display: flex; justify-content: space-between; align-items: center; }
-        .ctrl-btn { background: transparent; border: 1px solid var(--dark-green); color: var(--main-green); padding: 5px 10px; transition: 0.3s; font-family: 'Fira Code', monospace; font-size: 0.8rem; }
+        .ctrl-btn { background: transparent; border: 1px solid var(--dark-green); border-radius: 4px; color: var(--main-green); padding: 5px 10px; transition: 0.3s; font-family: 'Fira Code', monospace; font-size: 0.8rem; }
         .ctrl-btn:hover { background: var(--main-green); color: #000; box-shadow: 0 0 10px var(--main-green); }
         .audio-btn { flex-grow: 1; margin: 0 10px; font-weight: bold; }
         .now-playing { font-size: 0.7rem; color: var(--text-muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-top: 1px dashed var(--dark-green); padding-top: 5px; }
         .now-playing span { color: var(--main-green); animation: pulse-text 2s infinite; }
         @keyframes pulse-text { 0% { opacity: 0.6; } 50% { opacity: 1; text-shadow: 0 0 5px var(--main-green); } 100% { opacity: 0.6; } }
 
-        /* --- Header / Terminal Intro --- */
+        /* Header & Terminal Intro */
         header { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; padding: 20px; }
-        .terminal-box { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--main-green); padding: 30px; width: 100%; max-width: 800px; box-shadow: var(--border-glow); position: relative; }
-        .terminal-box::before { content: "SEC_TERM_v9.0"; position: absolute; top: -12px; left: 20px; background: var(--bg-color); padding: 0 10px; font-size: 0.8rem; color: var(--text-muted); }
-        .sys-log { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; }
+        .terminal-box { background: rgba(0, 0, 0, 0.85); border: 1px solid var(--main-green); border-radius: 8px; padding: 30px; width: 100%; max-width: 850px; box-shadow: var(--border-glow); position: relative; backdrop-filter: blur(5px); }
+        .terminal-box::before { content: "ROOT_SESSION_ACTIVE // v10.5"; position: absolute; top: -12px; left: 20px; background: var(--bg-color); padding: 0 10px; font-size: 0.8rem; color: var(--text-muted); }
         
-        h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--main-green); margin: 15px 0; }
-        .typewriter { font-size: 1rem; color: var(--main-green); min-height: 1.5em; border-right: 10px solid var(--main-green); display: inline-block; margin-top: 15px; animation: blink 1s step-end infinite; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--main-green); margin: 15px 0; }
+        .typewriter { font-size: 0.95rem; color: var(--main-green); border-right: 8px solid var(--main-green); display: inline-block; animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
 
-        .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 30px; }
-        .cyber-btn { background: transparent; border: 1px solid var(--main-green); color: var(--main-green); padding: 12px 20px; text-transform: uppercase; font-family: 'Fira Code', monospace; font-weight: bold; font-size: 0.85rem; text-decoration: none; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+        /* Interactive CLI */
+        .cli-shell { background: #000; border: 1px dashed var(--dark-green); border-radius: 4px; padding: 15px; margin: 20px 0; font-size: 0.85rem; max-height: 180px; overflow-y: auto; text-align: left; }
+        .cli-output { color: #ccc; margin-bottom: 10px; white-space: pre-line; }
+        .cli-input-line { display: flex; align-items: center; gap: 8px; }
+        .cli-prompt { color: var(--main-green); font-weight: bold; }
+        .cli-input { background: transparent; border: none; color: #fff; font-family: 'Fira Code', monospace; font-size: 0.85rem; outline: none; width: 100%; }
+
+        /* Buttons */
+        .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 25px; }
+        .cyber-btn { background: rgba(0, 255, 65, 0.05); border: 1px solid var(--main-green); border-radius: 4px; color: var(--main-green); padding: 12px 15px; text-transform: uppercase; font-family: 'Fira Code', monospace; font-weight: bold; font-size: 0.8rem; text-decoration: none; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; display: inline-block; backdrop-filter: blur(2px); }
         .cyber-btn::before { content: "> "; opacity: 0; transition: 0.3s; }
-        .cyber-btn:hover { background: var(--main-green); color: var(--bg-color); box-shadow: 0 0 15px var(--main-green); }
+        .cyber-btn:hover { background: var(--main-green); color: var(--bg-color); box-shadow: 0 0 15px var(--main-green); transform: translateY(-2px); }
         .cyber-btn:hover::before { opacity: 1; }
 
-        .social-links { margin-top: 25px; text-align: left; }
-        .social-links a { color: var(--text-muted); font-size: 1.5rem; margin-right: 20px; transition: 0.3s; }
+        .social-links { margin-top: 20px; text-align: left; }
+        .social-links a { color: var(--text-muted); font-size: 1.4rem; margin-right: 20px; transition: 0.3s; }
         .social-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        /* --- Sections Structure --- */
+        /* Bento Grid Architecture */
         .container { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; position: relative; z-index: 1; }
         .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 30px; display: flex; align-items: center; border-bottom: 1px solid var(--dark-green); padding-bottom: 10px; }
-        .section-title::before { content: "[ ]"; color: var(--main-green); margin-right: 15px; font-family: 'Fira Code', monospace; font-size: 1.2rem; }
+        .section-title::before { content: "[+]"; color: var(--main-green); margin-right: 15px; font-family: 'Fira Code', monospace; font-size: 1.2rem; }
 
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .hud-panel { background: rgba(0, 15, 0, 0.4); border: 1px solid var(--dark-green); border-left: 3px solid var(--main-green); padding: 25px; }
-        .hud-panel p { color: #ccc; font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px; }
-        .highlight { color: var(--main-green); background: rgba(0, 255, 65, 0.1); padding: 0 5px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .bento-box { background: var(--glass-bg); border: 1px solid var(--dark-green); border-radius: 8px; padding: 25px; backdrop-filter: blur(10px); transition: 0.3s ease; position: relative; overflow: hidden; }
+        .bento-box:hover { border-color: var(--main-green); box-shadow: 0 5px 20px rgba(0, 255, 65, 0.1); transform: translateY(-3px); }
+        .bento-box.highlight-box { border-left: 3px solid var(--main-green); }
+        .bento-box p { color: #ccc; font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px; }
+        .highlight { color: #000; background: var(--main-green); padding: 0 5px; font-weight: bold; border-radius: 2px; }
 
+        /* Skills Meters */
         .skill-row { margin-bottom: 15px; }
-        .skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; text-transform: uppercase; }
-        .data-meter { width: 100%; height: 6px; background: #111; border: 1px solid #333; display: flex; }
+        .skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; text-transform: uppercase; color: #fff; }
+        .data-meter { width: 100%; height: 6px; background: #111; border: 1px solid #333; display: flex; border-radius: 3px; overflow: hidden; }
         .data-fill { height: 100%; background: var(--main-green); box-shadow: 0 0 8px var(--main-green); width: 0; transition: width 2s cubic-bezier(0.1, 1, 0.1, 1); }
 
-        .project-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .intel-card { background: rgba(0, 0, 0, 0.6); border: 1px solid #222; padding: 20px; position: relative; transition: 0.3s; }
-        .intel-card:hover { border-color: var(--main-green); background: rgba(0, 20, 0, 0.8); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1); }
+        /* System Telemetry */
+        .telemetry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .stat-box { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px 15px; }
+        .stat-num { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: #fff; text-shadow: 0 0 15px var(--main-green); margin-bottom: 10px; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Projects with Visuals */
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .filter-btn { background: rgba(0, 10, 0, 0.8); border: 1px solid var(--dark-green); border-radius: 4px; color: var(--text-muted); padding: 6px 15px; font-family: 'Fira Code', monospace; font-size: 0.8rem; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { border-color: var(--main-green); color: var(--main-green); background: rgba(0, 255, 65, 0.05); }
+
+        .intel-card { background: var(--glass-bg); border: 1px solid #222; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
+        .card-image-wrapper { width: 100%; height: 160px; overflow: hidden; position: relative; border-bottom: 1px solid #222; }
+        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) sepia(100%) hue-rotate(70deg) brightness(0.7) contrast(1.5); transition: 0.5s; }
+        .intel-card:hover .card-image-wrapper img { filter: grayscale(100%) sepia(100%) hue-rotate(70deg) brightness(1) contrast(1.2) drop-shadow(0 0 10px var(--main-green)); transform: scale(1.05); }
+        .card-image-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8)); }
         
+        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .tags-cluster { margin-bottom: 15px; }
-        .badge { background: #111; color: var(--text-muted); border: 1px solid #333; font-size: 0.7rem; padding: 3px 8px; margin: 0 5px 5px 0; display: inline-block; }
-        .intel-card:hover .badge { color: var(--main-green); border-color: var(--dark-green); }
-        .intel-card h3 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
-        .intel-card h3 i { color: var(--text-muted); font-size: 1rem; }
-        .intel-card p { font-size: 0.85rem; color: #999; margin-bottom: 20px; min-height: 60px; }
-        
-        /* GitHub Repo Stats */
+        .badge { background: rgba(0, 255, 65, 0.1); color: var(--main-green); border: 1px solid var(--dark-green); border-radius: 3px; font-size: 0.7rem; padding: 3px 8px; margin: 0 5px 5px 0; display: inline-block; }
+        .intel-card h3 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .intel-card p { font-size: 0.85rem; color: #999; margin-bottom: 20px; flex-grow: 1; }
         .repo-stats { display: flex; gap: 15px; margin-bottom: 15px; font-size: 0.75rem; color: #777; }
         .repo-stats span i { margin-right: 5px; color: var(--text-muted); }
-        .intel-card:hover .repo-stats span i { color: #f1e05a; /* yellow star */ }
 
-        .log-entry { border-left: 1px dashed var(--dark-green); padding: 0 0 30px 20px; position: relative; }
-        .log-entry::before { content: ">"; position: absolute; left: -8px; top: 0; background: var(--bg-color); color: var(--main-green); font-weight: bold; }
-        .log-entry h4 { color: #fff; margin-bottom: 5px; font-family: 'Orbitron'; }
-        .log-entry span.timestamp { color: var(--alert-red); font-size: 0.8rem; display: block; margin-bottom: 10px; }
-        .log-entry p { color: #bbb; font-size: 0.9rem; }
+        /* FAQ Accordion */
+        .faq-item { background: var(--glass-bg); border: 1px solid var(--dark-green); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+        .faq-header { padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #fff; background: rgba(0, 20, 0, 0.6); transition: 0.3s; }
+        .faq-header:hover { background: rgba(0, 255, 65, 0.1); color: var(--main-green); }
+        .faq-header i { transition: 0.3s; }
+        .faq-header.active i { transform: rotate(180deg); color: var(--main-green); }
+        .faq-body { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: #ccc; font-size: 0.9rem; }
+        .faq-body p { margin-bottom: 15px; line-height: 1.6; }
 
-        footer { text-align: center; padding: 30px 30px 60px; border-top: 1px solid #111; color: var(--text-muted); font-size: 0.8rem; position: relative; z-index: 1; }
-
-        /* Floating WhatsApp Bot (Left Side) */
+        /* Floating WhatsApp Bot */
         .floating-action {
-            position: fixed; bottom: 40px; left: 30px; 
-            background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-green); color: var(--main-green);
+            position: fixed; bottom: 45px; left: 30px; 
+            background: rgba(0, 0, 0, 0.8); border: 1px solid var(--main-green); border-radius: 50%; color: var(--main-green);
             width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
             font-size: 24px; z-index: 1000; text-decoration: none; backdrop-filter: blur(5px); transition: 0.3s;
         }
         .floating-action:hover { background: var(--main-green); color: #000; box-shadow: 0 0 15px var(--main-green); }
 
+        footer { text-align: center; padding: 30px 30px 60px; border-top: 1px solid #111; color: var(--text-muted); font-size: 0.8rem; position: relative; z-index: 1; }
+
         @media (max-width: 900px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .cyber-player-container { top: auto; bottom: 90px; right: 20px; min-width: 200px; }
-            .bg-code-stream { font-size: 0.8rem; }
-            .bottom-ticker { bottom: 0; }
+            .cyber-player-container { top: auto; bottom: 55px; right: 20px; min-width: 200px; }
         }
     </style>
 </head>
@@ -179,29 +190,23 @@
         <span>def bypass_legacy_auth(target_ip): # Extracting keystore... </span>
         <span>fn scan_memory() -> Result<Vec<u8>, Error> { let dump = mem::read(); }</span>
         <span>SELECT * FROM users WHERE access_level = 'ROOT' -- </span>
-        <span>[+] AEGIS-X Payload injected successfully in process svchost.exe</span>
-        <span>[WARNING] Etherscan Address Watch Alert: Transfer of WLFI detected.</span>
     </div>
     <div class="bg-code-row right">
         <span>const obfuscate_js = (code) => { return btoa(code).replace(/=/g, ''); }</span>
-        <span>[OK] Checkers Pro extension verified. Supabase connection active.</span>
+        <span>[OK] Checkers Pro, Aeon Hunter Lite & Console Injection+ published on CWS.</span>
         <span>rustc --release -C opt-level=3 memvault.rs && ./memvault</span>
-        <span>import socket; s=socket.socket(); s.connect(("192.168.1.5", 4444));</span>
-        <span>[LOG] Cyber Forensic Android Analyzer starting ADB daemon...</span>
     </div>
     <div class="bg-code-row left">
         <span>void execute_shellcode(void* payload) { ((void(*)())payload)(); }</span>
         <span>[INFO] Extracting encrypted databases and cryptographic keys from Android device...</span>
         <span>import customtkinter as ctk; app = ctk.CTk(); app.title("Cyber Recon Terminal")</span>
-        <span>[!] Analyzing entropy of mapped memory regions... HIGH ENTROPY DETECTED.</span>
-        <span>Checking for open ports... 22/tcp OPEN ssh, 80/tcp OPEN http</span>
     </div>
 </div>
 
 <!-- BOTTOM NEWS TICKER -->
 <div class="bottom-ticker">
     <div class="ticker-content">
-        <span class="ticker-item"><span>[SYS_LOG]</span> Checkers Pro & Aeon Hunter Lite published on Chrome Web Store.</span>
+        <span class="ticker-item"><span>[SYS_LOG]</span> Checkers Pro, Aeon Hunter Lite & Console Injection+ live on Chrome Web Store.</span>
         <span class="ticker-item"><span>[ALERT]</span> Etherscan Wallet Watcher active on ETH Mainnet.</span>
         <span class="ticker-item"><span>[INFO]</span> MemVault Rust Scanner v1.2 released on GitHub.</span>
         <span class="ticker-item"><span>[UPDATE]</span> AEGIS-X RAT bypassing Windows Defender signatures.</span>
@@ -210,7 +215,7 @@
     </div>
 </div>
 
-<!-- Cyber Playlist Player Widget -->
+<!-- CYBER PLAYLIST PLAYER -->
 <div class="cyber-player-container">
     <div class="player-controls">
         <button id="prev-btn" class="ctrl-btn"><i class="fas fa-backward"></i></button>
@@ -225,41 +230,71 @@
 <!-- INTRO TERMINAL -->
 <header>
     <div class="terminal-box reveal">
-        <div class="glitch-wrapper">
-            <div class="sys-log">Initializing session... OK</div>
-            <div class="sys-log">Verifying Identity Hash... MATCH: [D.B. Jayasankha Madhusith]</div>
-            <div class="sys-log" style="color: var(--main-green);">Authentication Successful. Welcome Operator.</div>
-            <br>
-            <h1>JAYASANKHA MADHUSITH</h1>
-            <br>
-            <span style="color:#fff;">root@sys-admin:~#</span> <div class="typewriter" id="typing-text"></div>
+        <div class="sys-log">Initializing secure session... OK</div>
+        <div class="sys-log">Verifying Identity Hash... MATCH: [D.B. Jayasankha Madhusith]</div>
+        <div class="sys-log" style="color: var(--main-green);">Authentication Successful. Welcome Operator.</div>
+        <br>
+        <h1>JAYASANKHA MADHUSITH</h1>
+        <span style="color:#fff;">root@sys-admin:~#</span> <div class="typewriter" id="typing-text"></div>
+
+        <!-- Interactive CLI Shell Box -->
+        <div class="cli-shell" id="cli-container">
+            <div class="cli-output" id="cli-output">Type 'help' or 'send' to transmit secure messages via terminal...</div>
+            <div class="cli-input-line">
+                <span class="cli-prompt" id="cli-prompt-label">visitor@jayasankha:~$</span>
+                <input type="text" id="cli-input" class="cli-input" placeholder="Type a command..." autocomplete="off">
+            </div>
         </div>
 
         <div class="action-grid">
-    <a href="#dossier" class="cyber-btn">View Dossier</a>
-    <a href="#github-repos" class="cyber-btn">Access GitHub_Intel</a>
-    <a href="arsenal.html" class="cyber-btn">View Arsenal</a> <a href="CV.pdf" target="_blank" class="cyber-btn">Extract_CV.pdf</a>
-</div>
+            <a href="#dossier" class="cyber-btn">View Dossier</a>
+            <a href="#telemetry" class="cyber-btn">System Metrics</a>
+            <a href="#github-repos" class="cyber-btn">Access GitHub</a>
+            <a href="CV.pdf" target="_blank" class="cyber-btn">Extract_CV.pdf</a>
+        </div>
 
         <div class="social-links">
             <a href="https://github.com/Jayasankha-dev" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/jayasankha-madhusith/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://t.me/benjaminus" target="_blank"><i class="fab fa-telegram-plane"></i></a>
-            <a href="mailto:jmadhumax@gmail.com"><i class="fas fa-envelope"></i></a>
+			 <a href="mailto:jmadhumax@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </header>
 
+<!-- SYSTEM TELEMETRY -->
+<div class="container" id="telemetry">
+    <h2 class="section-title reveal">SYSTEM_TELEMETRY</h2>
+    <div class="telemetry-grid">
+        <div class="bento-box stat-box reveal">
+            <h3 class="stat-num" data-target="4">0</h3>
+            <span class="stat-label">Chrome Store Extensions</span>
+        </div>
+        <div class="bento-box stat-box reveal">
+            <h3 class="stat-num" data-target="37">0</h3>
+            <span class="stat-label">GitHub Repositories</span>
+        </div>
+        <div class="bento-box stat-box reveal">
+            <h3 class="stat-num" data-target="85">0</h3>
+            <span class="stat-label">Forensics Proficiency %</span>
+        </div>
+        <div class="bento-box stat-box reveal">
+            <h3 class="stat-num" data-target="100">0</h3>
+            <span class="stat-label">Terminal Operability %</span>
+        </div>
+    </div>
+</div>
+
 <!-- DOSSIER SECTION -->
 <div class="container" id="dossier">
     <h2 class="section-title reveal">OPERATOR_DOSSIER</h2>
-    <div class="about-grid">
-        <div class="hud-panel reveal">
-            <p><strong>CLASSIFICATION:</strong> Self-Taught Cybersecurity Specialist & Tools Developer.</p>
-            <p>Operating with a unique cognitive framework derived from a <span class="highlight">B.A. in Psychology & Criminology</span> (University of Sri Jayewardenepura). I analyze human-centric threat vectors while engineering low-level systemic countermeasures.</p>
-            <p>Specializing in <strong>Digital Forensics, Malware Analysis, Blockchain Reconnaissance, and Systems Programming (Rust/Python)</strong> to architect uncompromising offensive and defensive security tools.</p>
+    <div class="bento-grid">
+        <div class="bento-box highlight-box reveal">
+            <p><span class="highlight">CLASSIFICATION:</span> Self-Taught Cybersecurity Specialist & Tools Developer.</p>
+            <p>Operating with a unique cognitive framework derived from a <strong>B.A. in Psychology & Criminology & International Relations</strong>. I analyze human-centric threat vectors while engineering low-level systemic countermeasures.</p>
+            <p>Specializing in Digital Forensics, Malware Analysis, Blockchain Reconnaissance, and Systems Programming (Rust/Python) to architect uncompromising offensive and defensive security tools.</p>
         </div>
-        <div class="hud-panel reveal">
+        <div class="bento-box reveal">
             <div class="skill-row"><div class="skill-header"><span>PYTHON_AUTOMATION & RAT</span> <span>90%</span></div><div class="data-meter"><div class="data-fill" data-width="90%"></div></div></div>
             <div class="skill-row"><div class="skill-header"><span>DIGITAL_FORENSICS</span> <span>85%</span></div><div class="data-meter"><div class="data-fill" data-width="85%"></div></div></div>
             <div class="skill-row"><div class="skill-header"><span>RUST_MEMORY_MANIPULATION</span> <span>75%</span></div><div class="data-meter"><div class="data-fill" data-width="75%"></div></div></div>
@@ -268,108 +303,57 @@
     </div>
 </div>
 
-<!-- GITHUB INTEL (NEW SECTION) -->
+<!-- GITHUB & CHROME EXTENSIONS INTEL (AUTO-SYNCED) -->
 <div class="container" id="github-repos">
-    <h2 class="section-title reveal">OPEN_SOURCE_INTEL (GITHUB_REPOS)</h2>
-    <div class="project-matrix">
-        
-        <!-- Repo 1 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">Forensics</span></div>
-            <h3><i class="far fa-folder-open"></i> AEGIS-X <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-star"></i> Top Rated</span>
-                <span><i class="fas fa-code-branch"></i> Active</span>
-            </div>
-            <p>Ultimate Telegram Remote Administration Tool (RAT) integrated with live forensic triage modules. Silently maps out and detects anomalous activities.</p>
-            <a href="https://github.com/Jayasankha-dev/AEGIS-X" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
-        </div>
-
-        <!-- Repo 2 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">Rust</span><span class="badge">Memory Scanner</span></div>
-            <h3><i class="far fa-folder-open"></i> MemVault <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-star"></i> Trending</span>
-                <span><i class="fas fa-microchip"></i> Low-level</span>
-            </div>
-            <p>High-Performance Memory Token Hunter. Scans processes, maps memory regions, and executes entropy-based analysis to extract critical artifacts directly from RAM.</p>
-            <a href="https://github.com/Jayasankha-dev/MemVault" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
-        </div>
-
-        <!-- Repo 3 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">GUI</span></div>
-            <h3><i class="far fa-folder-open"></i> Cyber-Sec-Terminal <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-network-wired"></i> Recon</span>
-                <span><i class="fas fa-shield-alt"></i> Red Team</span>
-            </div>
-            <p>Comprehensive Reconnaissance desktop suite. Features a web security inspector and a customtkinter GUI for rapid, deep-dive target profiling.</p>
-            <a href="https://github.com/Jayasankha-dev/Cyber-Security-Recon-Super-Terminal-" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
-        </div>
-
-        <!-- Repo 4 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">Batchfile</span><span class="badge">ADB</span></div>
-            <h3><i class="far fa-folder-open"></i> Android-Forensic-Analyzer <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-mobile-alt"></i> Mobile Sec</span>
-            </div>
-            <p>Automated ADB-based triage utility. Executes deep system audits, network analysis, and permission mapping across connected Android devices.</p>
-            <a href="https://github.com/Jayasankha-dev/CYBER-FORENSIC-ANDROID-ANALYZER-v5.9" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
-        </div>
-
-        <!-- Repo 5 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">Python</span><span class="badge">Cryptography</span></div>
-            <h3><i class="far fa-folder-open"></i> WhatsApp-Legacy-Bypass <i class="fab fa-github" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-key"></i> Decryption</span>
-            </div>
-            <p>Extracts encrypted databases and cryptographic keys from non-rooted Android devices via the Legacy Downgrade extraction method.</p>
-            <a href="https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass" target="_blank" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; display: block;">View_Repository</a>
-        </div>
-
-        <!-- Repo 6 -->
-        <div class="intel-card reveal">
-            <div class="tags-cluster"><span class="badge">JavaScript</span><span class="badge">Supabase</span></div>
-            <h3><i class="far fa-folder-open"></i> Checkers Pro Ext. <i class="fab fa-chrome" style="color: #fff; font-size:1.2rem;"></i></h3>
-            <div class="repo-stats">
-                <span><i class="fas fa-lock"></i> Obfuscated JS</span>
-            </div>
-            <p>Advanced browser extension published on the Chrome Web Store. Engineered with Supabase backends and robust JS protection utilizing Obfuscator.io.</p>
-            <a href="#" class="cyber-btn" style="padding: 6px 12px; font-size: 0.75rem; border-color: #555; color: #555; cursor: not-allowed; display: block;">Source_Closed</a>
-        </div>
-
+    <h2 class="section-title reveal">OPEN_SOURCE_INTEL & EXTENSIONS (VISUAL_LOGS)</h2>
+    
+    <div class="filter-tabs reveal">
+        <button class="filter-btn active" data-filter="all">[*] ALL_MODULES</button>
+        <button class="filter-btn" data-filter="python">PYTHON</button>
+        <button class="filter-btn" data-filter="rust">RUST</button>
+        <button class="filter-btn" data-filter="javascript">JAVASCRIPT</button>
+        <button class="filter-btn" data-filter="other">OTHER</button>
     </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <a href="https://github.com/Jayasankha-dev?tab=repositories" target="_blank" class="cyber-btn" style="font-size: 1rem; padding: 15px 30px;">[+] EXPLORE_ALL_REPOSITORIES</a>
+
+    <!-- Dynamically loaded repositories grid -->
+    <div class="bento-grid" id="github-grid">
+        <div class="intel-card reveal is-visible" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <p><i class="fas fa-spinner fa-spin"></i> Syncing live repositories from GitHub API...</p>
+        </div>
     </div>
 </div>
 
-<!-- SYSTEM LOGS -->
-<div class="container" id="logs">
-    <h2 class="section-title reveal">SYSTEM_LOGS</h2>
-    <div class="hud-panel reveal" style="padding-left: 40px;">
-        <div class="log-entry">
-            <span class="timestamp">[ CURRENT ] STATUS: ACTIVE_DEVELOPMENT</span>
-            <h4>Self-Taught Sec-Dev & Threat Analyst</h4>
-            <p>Architecting offensive/defensive scripts, memory manipulation tools (Rust), and monitoring blockchain wallet telemetry.</p>
+<!-- OPERATIONS MATRIX (FAQ) -->
+<div class="container" id="faq">
+    <h2 class="section-title reveal">OPERATIONS_MATRIX (FAQ)</h2>
+    <div class="bento-box reveal" style="padding: 10px;">
+        <div class="faq-item">
+            <div class="faq-header">What kind of engineering can I hire you for? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-body">
+                <p style="padding-top: 15px;">I specialize in engineering offensive/defensive cybersecurity tools, automated reconnaissance systems (Python/Rust), deep digital forensics, and secure Chrome Web Store browser extensions.</p>
+            </div>
         </div>
-        <div class="log-entry" style="border-left: none; padding-bottom: 0;">
-            <span class="timestamp">[ 2024 ] STATUS: GRADUATED</span>
-            <h4>University of Sri Jayewardenepura</h4>
-            <p>Bachelor of Arts (External). Core Modules: Cognitive Psychology, Criminology, International Relations, and Applied Tech Fundamentals.</p>
+        <div class="faq-item">
+            <div class="faq-header">How does your psychology background aid cybersecurity? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-body">
+                <p style="padding-top: 15px;">Understanding human behavior and criminology allows me to anticipate social engineering vectors, analyze threat actor methodologies, and build forensic tools that map digital footprints back to human logic.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-header">Are your extensions verified on the Chrome Web Store? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-body">
+                <p style="padding-top: 15px;">Yes! Extensions such as Checkers Pro, Aeon Hunter Lite, and Console Injection+ are officially published and live on the Chrome Web Store.</p>
+            </div>
         </div>
     </div>
 </div>
 
 <footer><p>DATA_STREAM_TERMINATED. // &copy; 2026 JAYASANKHA MADHUSITH.</p></footer>
 
+<!-- FLOATING WHATSAPP BUTTON -->
 <a href="https://wa.link/z1syel" target="_blank" class="floating-action" title="Establish Secure Comms"><i class="fab fa-whatsapp"></i></a>
 
-<!-- Tawk.to Script -->
+<!-- TAWK.TO LIVE CHAT SCRIPT -->
 <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -384,36 +368,234 @@
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-    /* Particles & Typing FX */
+    /* Particles Init */
     particlesJS('particles-js', {
-        "particles": { "number": { "value": 80 }, "color": { "value": "#00ff41" }, "shape": { "type": "circle" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#00ff41", "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } },
-        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } } },
-        "retina_detect": true
+        "particles": { "number": { "value": 60 }, "color": { "value": "#00ff41" }, "shape": { "type": "circle" }, "opacity": { "value": 0.2 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#00ff41", "opacity": 0.1 }, "move": { "enable": true, "speed": 1 } },
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }, "retina_detect": true
     });
 
+    /* Terminal Typing Effect */
     const text = "./execute_cyber_security_profile.sh --fetch-github-intel"; let i = 0;
-    function typeWriter() { if (i < text.length) { document.getElementById("typing-text").innerHTML += text.charAt(i); i++; setTimeout(typeWriter, 40); } }
-    setTimeout(typeWriter, 1000);
+    function typeWriter() { if (i < text.length) { document.getElementById("typing-text").innerHTML += text.charAt(i); i++; setTimeout(typeWriter, 35); } }
+    setTimeout(typeWriter, 800);
 
+    /* Telemetry Counters & Scroll Observer */
+    const counters = document.querySelectorAll('.stat-num');
+    let counted = false;
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
                 entry.target.querySelectorAll('.data-fill').forEach(bar => { setTimeout(() => { bar.style.width = bar.getAttribute('data-width'); }, 300); });
+                
+                if (entry.target.classList.contains('stat-box') && !counted) {
+                    counters.forEach(counter => {
+                        const updateCount = () => {
+                            const target = +counter.getAttribute('data-target');
+                            const count = +counter.innerText;
+                            const inc = target / 40;
+                            if (count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 40); }
+                            else { counter.innerText = target + (target > 10 ? '+' : ''); }
+                        };
+                        updateCount();
+                    });
+                    counted = true;
+                }
             }
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    /* --- Cyber Playlist Logic --- */
-    /* 
-       METHANATA OYAGE SONGS DAGANNA. 
-       url ekata oyage .mp3 file path eka danna (e.g., 'audio/hislerim.mp3').
-    */
+    /* GitHub Auto-Sync Integration with Rotating Images */
+    async function fetchGitHubRepos() {
+        const grid = document.getElementById('github-grid');
+        if (!grid) return;
+
+        // Cyber theme Unsplash image array to rotate through dynamically
+        const cyberImages = [
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80"
+        ];
+
+        try {
+            const response = await fetch('https://api.github.com/users/Jayasankha-dev/repos?sort=updated&per_page=12');
+            const repos = await response.json();
+
+            if (!Array.isArray(repos)) {
+                grid.innerHTML = `<div style="color: var(--alert-red); text-align:center; padding:20px;">[!] Invalid response from GitHub API.</div>`;
+                return;
+            }
+
+            grid.innerHTML = ''; // Clear loading state
+
+            repos.forEach((repo, index) => {
+                const imgUrl = cyberImages[index % cyberImages.length]; // Rotate images sequentially
+                const lang = repo.language ? repo.language.toLowerCase() : 'other';
+                const description = repo.description ? repo.description : 'No description provided for this repository stream.';
+                
+                const cardHTML = `
+                    <div class="intel-card reveal is-visible" data-category="${lang}">
+                        <div class="card-image-wrapper">
+                            <img src="${imgUrl}" alt="${repo.name}">
+                            <div class="card-image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tags-cluster">
+                                <span class="badge">${repo.language || 'General'}</span>
+                                <span class="badge">GitHub Sync</span>
+                            </div>
+                            <h3>${repo.name} <i class="fab fa-github"></i></h3>
+                            <div class="repo-stats">
+                                <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                                <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                            </div>
+                            <p>${description}</p>
+                            <a href="${repo.html_url}" target="_blank" class="cyber-btn" style="width: 100%;">View_Repository</a>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            // Re-bind filtering for dynamically added cards
+            setupFilterTabs();
+
+        } catch (error) {
+            grid.innerHTML = `<div style="color: var(--alert-red); text-align:center; padding:20px;">[!] Failed to sync GitHub repositories. Please check network connection.</div>`;
+        }
+    }
+
+    /* Filter Tabs Logic */
+    function setupFilterTabs() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const intelCards = document.querySelectorAll('.intel-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                let filterVal = btn.getAttribute('data-filter');
+                
+                intelCards.forEach(card => {
+                    if (filterVal === 'all' || card.getAttribute('data-category') === filterVal) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    // Initialize GitHub sync on load
+    fetchGitHubRepos();
+
+    /* Terminal CLI with Formspree Integration */
+    const cliInput = document.getElementById('cli-input');
+    const cliOutput = document.getElementById('cli-output');
+    const cliContainer = document.getElementById('cli-container');
+    let terminalState = 'normal'; let tempEmail = '';
+
+    cliInput.addEventListener('keypress', async function(e) {
+        if (e.key === 'Enter') {
+            let cmd = cliInput.value.trim();
+            let lowerCmd = cmd.toLowerCase();
+            let response = "";
+
+            if (terminalState === 'normal') {
+                if (lowerCmd === 'help') {
+                    response = "Available Commands:\n - about: Brief operator bio\n - skills: View core expertise\n - contact: Get communication channels\n - send: Dispatch a secure message to operator\n - clear: Clear terminal output";
+                } else if (lowerCmd === 'about') {
+                    response = "Diyangu Badathuruge Jayasankha Madhusith - Cybersecurity Specialist, Tool Developer, and Blockchain Recon Analyst.";
+                } else if (lowerCmd === 'skills') {
+                    response = "Python Automation & RAT (90%), Digital Forensics (85%), Rust Memory Manipulation (75%), Web Sec & JS Obfuscation (85%).";
+                } else if (lowerCmd === 'contact') {
+                    response = "Email: jmadhumax@gmail.com | Telegram: @benjaminus | GitHub: Jayasankha-dev";
+                } else if (lowerCmd === 'send') {
+                    terminalState = 'awaiting_email';
+                    cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n[+] Enter your email address:`;
+                    cliInput.value = "";
+                    cliContainer.scrollTop = cliContainer.scrollHeight;
+                    return;
+                } else if (lowerCmd === 'clear') {
+                    cliOutput.innerHTML = "Terminal cleared.";
+                    cliInput.value = "";
+                    return;
+                } else if (lowerCmd === '') {
+                    response = "";
+                } else {
+                    response = `Command not recognized: '${lowerCmd}'. Type 'help' for available actions.`;
+                }
+                cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n${response}`;
+            } 
+            else if (terminalState === 'awaiting_email') {
+                if (cmd === '') {
+                    response = "[!] Email cannot be empty. Re-enter your email:";
+                    cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n${response}`;
+                } else {
+                    tempEmail = cmd;
+                    terminalState = 'awaiting_message';
+                    cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n[+] Enter your message content:`;
+                }
+            } 
+            else if (terminalState === 'awaiting_message') {
+                if (cmd === '') {
+                    response = "[!] Message cannot be empty. Re-enter your message:";
+                    cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n${response}`;
+                } else {
+                    let tempMessage = cmd;
+                    terminalState = 'normal';
+                    cliOutput.innerHTML += `\nvisitor@jayasankha:~$ ${cmd}\n[+] Transmitting payload to Formspree backend...`;
+
+                    try {
+                        let formData = new FormData();
+                        formData.append('email', tempEmail);
+                        formData.append('message', tempMessage);
+
+                        let res = await fetch('https://formspree.io/f/mgaekarl', {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if (res.ok) {
+                            cliOutput.innerHTML += `\n[+] Transmission successful! Message delivered to operator.`;
+                        } else {
+                            cliOutput.innerHTML += `\n[!] Transmission failed. Please try again later.`;
+                        }
+                    } catch (err) {
+                        cliOutput.innerHTML += `\n[!] Network error encountered during dispatch.`;
+                    }
+                }
+            }
+
+            cliInput.value = ""; 
+            cliContainer.scrollTop = cliContainer.scrollHeight;
+        }
+    });
+
+    /* FAQ Accordion Logic */
+    document.querySelectorAll('.faq-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.classList.toggle('active');
+            let body = header.nextElementSibling;
+            if (header.classList.contains('active')) { body.style.maxHeight = body.scrollHeight + "px"; } 
+            else { body.style.maxHeight = 0; }
+        });
+    });
+
+    /* Cyber Playlist Logic */
     const playlist = [
         { name: "Sound Track 01", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
         { name: "Sound Track 02", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-        { name: "Sound Track 03", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+        { name: "Sound Track 03", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+		{ name: "[UK_RADIO] - Capital FM London", url: "https://media-ice.musicradio.com/CapitalMP3" },
+        { name: "[UK_RADIO] - Classic FM", url: "https://media-ice.musicradio.com/ClassicFMMP3" },
+        { name: "[UK_RADIO] - Smooth Radio UK", url: "https://media-ice.musicradio.com/SmoothUKMP3" }
     ];
 
     let currentTrack = 0;
@@ -477,6 +659,5 @@
         document.body.removeEventListener('click', initAudio);
     }, { once: true });
 </script>
-
 </body>
 </html>
